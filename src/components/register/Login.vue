@@ -37,7 +37,7 @@
           input.btn.btn-login(:class="{'disabled': !loginPass}" type="button" value="登录" @click="dologin()")
       .input-item
         .form-group
-          footer
+          .footer
             a.tab()
               router-link(to="/losepwd") 忘记密码
             a.tab()
@@ -163,7 +163,7 @@ export default {
           color: #78A6A3;
           border-bottom: 1px solid #78A6A3;
 
-  footer
+  .footer
     display: flex;
     width: 100%;
     margin-top: 20px;
