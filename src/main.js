@@ -6,12 +6,19 @@ import router from './router'
 import Vuex from 'vuex'
 import VueResource from 'vue-resource'
 import ElementUI from 'element-ui'
+import MintUI from 'mint-ui'
+import BootstrapVue from 'bootstrap-vue'
 
 import 'element-ui/lib/theme-default/index.css'
+import 'mint-ui/lib/style.css'
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 Vue.use(Vuex)
 Vue.use(VueResource)
 Vue.use(ElementUI)
+Vue.use(MintUI)
+Vue.use(BootstrapVue)
 
 Vue.config.productionTip = false
 

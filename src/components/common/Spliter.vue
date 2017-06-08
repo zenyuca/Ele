@@ -1,18 +1,12 @@
 <template lang="pug">
-  #hello
-    v-headBar(title="找回密码")
+  #spliter
 </template>
 
 <script>
-import HeadBar from '@/components/common/HeadBar'
 export default {
-  name: 'hello',
-  components: {
-    'v-headBar': HeadBar
-  },
+  name: 'spliter',
   data () {
     return {
-      msg: ''
     }
   }
 }
@@ -20,5 +14,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="stylus">
-
+  #spliter
+    height: 20px;
+    background-color: #FAFAFA;
 </style>
