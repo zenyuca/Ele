@@ -1,8 +1,9 @@
 <template lang="pug">
   #headBar
-    span.back(@click="back()")
+    span.back(@click="back()" v-show="showBack")
       i.el-icon-arrow-left
     span.title {{title}}
+    router-link.addon(:to="addon.route" tag="span") {{addon.title}}
     //- mt-header(fixed :title="title")
     //-   mt-button(icon="back" slot="left" @click="back()")
 </template>
@@ -15,6 +16,21 @@ export default {
       type: String,
       default () {
         return ''
+      }
+    },
+    showBack: {
+      type: Boolean,
+      default () {
+        return true
+      }
+    },
+    addon: {
+      type: Object,
+      default () {
+        return {
+          title: '',
+          route: ''
+        }
       }
     }
   },
@@ -33,7 +49,7 @@ export default {
 <style lang="stylus">
   #headBar
     background-color: #000000;
-    background-color: #000;
+    font-size: 16px;
     color: #ffffff;
     height: 3.2em;
     line-height: 3.2em;
@@ -42,7 +58,15 @@ export default {
       position: absolute;
       left: 0;
       top: 0;
-      width: 2.5em;
-      height: 2.5em;
+      width: 3.2em;
+      height: 3.2em;
       float: left;
+    .addon
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 4.5em;
+      height: 3.2em;
+      text-align: center;
+      float: right;
 </style>

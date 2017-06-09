@@ -17,9 +17,8 @@
     .input-item
       .form-group
         .footer
-          a.tab()
-            router-link(to="/losepwd") 忘记密码
-          a.tab()
+          router-link.tab(to="/losepwd" tag="span") 忘记密码
+          span.tab()
             el-checkbox(v-model="rememberpwd") 记住密码
 </template>
 
@@ -37,7 +36,6 @@ export default {
     let account = this.$localStorage.get('account')
     if (account) {
       account = JSON.parse(account)
-      console.log(account.rememberpwd)
       this.rememberpwd = account.rememberpwd
       this.login.phone = account.phone
       this.login.pwd = account.pwd
@@ -86,6 +84,7 @@ export default {
           timeout: 5000,
           emulateJSON: true
         }).then((response) => {
+          Indicator.close()
           response = response.body
           let status = response.status
           if (status === 0) {
@@ -96,6 +95,7 @@ export default {
               this.$localStorage.remove('account')
             }
             this.$store.state.account = response.data
+            this.$router.push('/me')
           } else {
             Toast({
               message: response.msg,

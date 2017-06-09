@@ -16,5 +16,5 @@ export default {
 <style lang="stylus">
   #spliter
     height: 20px;
-    background-color: #FAFAFA;
+    background-color: #f5f4f4;
 </style>

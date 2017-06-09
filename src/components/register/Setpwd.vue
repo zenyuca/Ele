@@ -72,7 +72,7 @@ export default {
             response = response.body
             let status = response.status
             if (status === 0) {
-              // this.$store.state.findpwd = response.data
+              this.$localStorage.remove('account')
               this.$router.replace('/login')
             } else {
               Toast({

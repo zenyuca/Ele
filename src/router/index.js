@@ -6,6 +6,9 @@ import Register from '@/components/register/Register'
 import Losepwd from '@/components/register/Losepwd'
 import Setpwd from '@/components/register/Setpwd'
 
+import Me from '@/components/me/Me'
+import Settings from '@/components/settings/Settings'
+
 Vue.use(Router)
 
 export default new Router({
@@ -13,7 +16,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Login',
+      name: 'Index',
       component: Login
     },
     {
@@ -35,6 +38,16 @@ export default new Router({
       path: '/setpwd',
       name: 'Setpwd',
       component: Setpwd
+    },
+    {
+      path: '/me',
+      name: 'Me',
+      component: Me
+    },
+    {
+      path: '/settings',
+      name: 'Settings',
+      component: Settings
     }
   ]
 })
