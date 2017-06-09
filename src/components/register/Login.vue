@@ -2,56 +2,46 @@
   #login
     v-headBar(title="掌上用电")
     .nav-bar
-      .tab-item(:class="{'isActive': isActive == 1}" @click="select(1)") 登录
+      .tab-item(:class="{'isActive': isActive == 1}" ) 登录
       .tab-item(:class="{'isActive': isActive == 2}" @click="select(2)") 注册
     v-spliter
-    #register(v-show="isActive == 2")
-      .input-item
-        .form-group
-          label.control-label 登录账号
-          input.control-input(placeholder="请输入手机号码" type="number" v-model="register.phone")
-      .input-item
-        .form-group
-          label.control-label 设置密码
-          input.control-input(placeholder="请输入6-15位字符" type="password" v-model="register.pwd")
-      .input-item
-        .form-group
-          label.control-label 确认密码
-          input.control-input(placeholder="再次输入密码" type="password" v-model="register.repwd")
-      .input-item
-        .form-group
-          label.control-label 身份证号
-          input.control-input(placeholder="身份证号" type="text" v-model="register.id")
-      .input-item
-        .form-group
-          input.btn.btn-login(:class="{'disabled': !registerPass}" type="button" value="注册" @click="doregister()")
-    #login(v-show="isActive == 1")
-      .input-item
-        .form-group
-          input.control-input(placeholder="请输入手机号码" type="number" v-model="login.phone")
-      .input-item
-        .form-group
-          input.control-input(placeholder="请输入密码" type="password" v-model="login.pwd")
-      .input-item
-        .form-group
-          input.btn.btn-login(:class="{'disabled': !loginPass}" type="button" value="登录" @click="dologin()")
-      .input-item
-        .form-group
-          .footer
-            a.tab()
-              router-link(to="/losepwd") 忘记密码
-            a.tab()
-              el-checkbox 记住密码
+    .input-item
+      .form-group
+        input.control-input(placeholder="请输入手机号码" type="number" v-model="login.phone")
+    .input-item
+      .form-group
+        input.control-input(placeholder="请输入密码" type="password" v-model="login.pwd")
+    .input-item
+      .form-group
+        input.btn.btn-login(:class="{'disabled': !loginPass}" type="button" value="登录" @click="dologin()")    
+    .input-item
+      .form-group
+        .footer
+          a.tab()
+            router-link(to="/losepwd") 忘记密码
+          a.tab()
+            el-checkbox(v-model="rememberpwd") 记住密码
 </template>
 
 <script>
 import HeadBar from '@/components/common/HeadBar'
 import Spliter from '@/components/common/Spliter'
-import { Toast } from 'mint-ui'
+import { Toast, Indicator } from 'mint-ui'
+
 export default {
   name: 'login',
   beforeRouteEnter (to, from, next) {
     next()
+  },
+  created () {
+    let account = this.$localStorage.get('account')
+    if (account) {
+      account = JSON.parse(account)
+      console.log(account.rememberpwd)
+      this.rememberpwd = account.rememberpwd
+      this.login.phone = account.phone
+      this.login.pwd = account.pwd
+    }
   },
   components: {
     'v-headBar': HeadBar,
@@ -64,14 +54,8 @@ export default {
         phone: '',
         pwd: ''
       },
-      register: {
-        phone: '',
-        pwd: '',
-        repwd: '',
-        id: ''
-      },
       loginPass: false,
-      registerPass: false
+      rememberpwd: false
     }
   },
   watch: {
@@ -80,30 +64,53 @@ export default {
         this.loginValidator()
       },
       deep: true
-    },
-    register: {
-      handler (curVal, oldVal) {
-        this.registerValidator()
-      },
-      deep: true
     }
   },
-  activeted () {
-    this._init()
-  },
   methods: {
-    _init () {
-      this.login = {}
-      this.register = {}
-      this.isActive = 1
-      this.loginPass = false
-      this.registerPass = false
-    },
     select (id) {
       this.isActive = id
+      if (id === 2) {
+        this.$router.push('/register')
+      }
     },
     dologin () {
       if (this.loginPass) {
+        Indicator.open({
+          text: '登录中...',
+          spinnerType: 'fading-circle'
+        })
+        this.$http.post('/mobile/user/login.html', {
+          phone: this.login.phone,
+          pwd: this.login.pwd
+        }, {
+          timeout: 5000,
+          emulateJSON: true
+        }).then((response) => {
+          response = response.body
+          let status = response.status
+          if (status === 0) {
+            if (this.rememberpwd) {
+              this.login.rememberpwd = this.rememberpwd
+              this.$localStorage.set('account', JSON.stringify(this.login))
+            } else {
+              this.$localStorage.remove('account')
+            }
+            this.$store.state.account = response.data
+          } else {
+            Toast({
+              message: response.msg,
+              position: 'bottom',
+              duration: 1500
+            })
+          }
+        }, (response) => {
+          Indicator.close()
+          Toast({
+            message: '请求超时',
+            position: 'bottom',
+            duration: 1500
+          })
+        })
       }
     },
     loginValidator () {
@@ -112,30 +119,6 @@ export default {
       }
       if (this.loginPass) {
         this.loginPass = /^[0-9_a-zA-Z]{6,15}$/.test(this.login.pwd)
-      }
-    },
-    doregister () {
-      if (this.registerPass) {
-        if (this.register.pwd !== this.register.repwd) {
-          Toast({
-            message: '两次密码不一致',
-            position: 'bottom',
-            duration: 1500
-          })
-        } else {
-          //
-        }
-      }
-    },
-    registerValidator () {
-      if (this.register.phone) {
-        this.registerPass = this.register.phone.length === 11
-      }
-      if (this.registerPass) {
-        this.registerPass = /^[0-9_a-zA-Z]{6,15}$/.test(this.register.pwd)
-      }
-      if (this.registerPass) {
-        this.registerPass = /^[\d]{17}[\dx]$/.test(this.register.id)
       }
     }
   }

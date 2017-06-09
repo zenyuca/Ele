@@ -16,6 +16,7 @@
 <script>
 import HeadBar from '@/components/common/HeadBar'
 import Spliter from '@/components/common/Spliter'
+import { Toast } from 'mint-ui'
 export default {
   name: 'losepwd',
   components: {
@@ -42,7 +43,32 @@ export default {
   methods: {
     dologin () {
       if (this.loginPass) {
-        this.$router.push('/setpwd')
+        this.$http.post('/mobile/user/forget_pwd.html', {
+          phone: this.login.phone,
+          IDcard: this.login.id
+        }, {
+          timeout: 5000,
+          emulateJSON: true
+        }).then((response) => {
+          response = response.body
+          let status = response.status
+          if (status === 0) {
+            this.$store.state.findpwd = response.data
+            this.$router.replace('/setpwd')
+          } else {
+            Toast({
+              message: response.msg,
+              position: 'bottom',
+              duration: 1500
+            })
+          }
+        }, (response) => {
+          Toast({
+            message: '请求超时',
+            position: 'bottom',
+            duration: 1500
+          })
+        })
       }
     },
     loginValidator () {

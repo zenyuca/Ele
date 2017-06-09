@@ -59,7 +59,35 @@ export default {
             duration: 1500
           })
         } else {
-          this.$router.replace('/login')
+          let findpwd = this.$store.state.findpwd
+          this.$http.post('/mobile/user/reset_pwd.html', {
+            phone: findpwd.phone,
+            pwd: this.login.pwd,
+            c_pwd: this.login.repwd,
+            token: findpwd.token
+          }, {
+            timeout: 5000,
+            emulateJSON: true
+          }).then((response) => {
+            response = response.body
+            let status = response.status
+            if (status === 0) {
+              // this.$store.state.findpwd = response.data
+              this.$router.replace('/login')
+            } else {
+              Toast({
+                message: response.msg,
+                position: 'bottom',
+                duration: 1500
+              })
+            }
+          }, (response) => {
+            Toast({
+              message: '请求超时',
+              position: 'bottom',
+              duration: 1500
+            })
+          })
         }
       }
     },
