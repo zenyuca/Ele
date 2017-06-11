@@ -51,22 +51,22 @@ export default {
     background-color: #000000;
     font-size: 16px;
     color: #ffffff;
-    height: 3.2em;
-    line-height: 3.2em;
+    height: 3.5em;
+    line-height: 3.5em;
     text-align: center;
     .back
       position: absolute;
       left: 0;
       top: 0;
-      width: 3.2em;
-      height: 3.2em;
+      width: 2.5em;
+      height: 3.5em;
       float: left;
     .addon
       position: absolute;
       right: 0;
       top: 0;
       width: 4.5em;
-      height: 3.2em;
+      height: 3.5em;
       text-align: center;
       float: right;
 </style>

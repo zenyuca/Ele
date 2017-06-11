@@ -1,13 +1,13 @@
 <template lang="pug">
   #footeBar
     .item
-      router-link(to="/losepwd" tag="div")
+      router-link(to="/" tag="div")
         .row.up
           .el-icon-date
         .row.down
           span 掌上用电
     .item
-      router-link(to="/register" tag="div")
+      router-link(to="/me" tag="div")
         .row.up
           i.el-icon-menu
         .row.down
@@ -34,18 +34,22 @@ export default {
     bottom: 0;
     left: 0;
     right: 0;
-    height: 3.5em;
+    height: 4.5em;
     display: flex;
     border-top: 1px solid #d8d8d8;
     .item
       flex: 1
       text-align: center;
+      color: #736f6f;
       .row
-        height: 1.75em;
+        // height: 2.25em;
         &.up
-          line-height: 1.75em;
-          font-size: 1.5em;
+          padding-top: 0.4em;
+          font-size: 2em;
         &.down
-          line-height: 0.3em;
+          padding-top: 0.3em;
+          // line-height: 0em;
           font-size: 12px;
+      .router-link-exact-active
+        color: #11a7a2;
 </style>

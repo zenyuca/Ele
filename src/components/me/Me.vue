@@ -56,4 +56,5 @@ export default {
         margin-top: 10px;
       .phone
         margin-top: 10px;
+        font-weight: bold;
 </style>

@@ -31,7 +31,7 @@ import HeadBar from '@/components/common/HeadBar'
 import Spliter from '@/components/common/Spliter'
 import { Toast } from 'mint-ui'
 export default {
-  name: 'login',
+  name: 'register',
   beforeRouteEnter (to, from, next) {
     next()
   },
@@ -140,12 +140,4 @@ export default {
           font-weight: bold;
           color: #78A6A3;
           border-bottom: 1px solid #78A6A3;
-
-  .footer
-    display: flex;
-    width: 100%;
-    margin-top: 20px;
-    .tab
-      flex: 1;
-      text-align: center;
 </style>

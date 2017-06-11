@@ -1,6 +1,7 @@
 <template lang="pug">
   #me
     v-headBar(title="设置")
+    v-spliter(height="7")
     ul.normal-list
       li.row
         label.normal-label 账号
@@ -9,12 +10,12 @@
         label.normal-label 昵称
         i.arrow.el-icon-arrow-right
         span.normal-value {{account.nickname}}
-    v-spliter
+    v-spliter(height="10")
     ul.normal-list
       li.row
         label.normal-label 修改密码
-        i.arrow.el-icon-arrow-right
-    v-spliter
+        router-link.arrow.el-icon-arrow-right(to="/setNewpwd" tag="i")
+    v-spliter(height="10")
     .input-item
       .form-group
         input.btn.btn-login( type="button" value="退出登录" @click="doexit()") 
@@ -48,8 +49,8 @@ export default {
   },
   methods: {
     doexit () {
-      this.$store.state.account = {}
-      this.$localStorage.remove('account')
+      // this.$store.state.account = {}
+      // this.$localStorage.remove('account')
       this.$router.replace('/login')
     }
   }

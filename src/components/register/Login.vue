@@ -89,11 +89,11 @@ export default {
           let status = response.status
           if (status === 0) {
             if (this.rememberpwd) {
-              this.login.rememberpwd = this.rememberpwd
-              this.$localStorage.set('account', JSON.stringify(this.login))
             } else {
-              this.$localStorage.remove('account')
+              this.login.pwd = ''
             }
+            this.login.rememberpwd = this.rememberpwd
+            this.$localStorage.set('account', JSON.stringify(this.login))
             this.$store.state.account = response.data
             this.$router.push('/me')
           } else {

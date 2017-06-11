@@ -1,10 +1,18 @@
 <template lang="pug">
-  #spliter
+  #spliter(:style="{height: height + 'px'}")
 </template>
 
 <script>
 export default {
   name: 'spliter',
+  props: {
+    height: {
+      type: String,
+      default () {
+        return '15'
+      }
+    }
+  },
   data () {
     return {
     }
@@ -15,6 +23,5 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="stylus">
   #spliter
-    height: 20px;
     background-color: #f5f4f4;
 </style>
