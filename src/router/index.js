@@ -10,6 +10,7 @@ import Setpwd from '@/components/user/Setpwd'
 import Me from '@/components/me/Me'
 import Settings from '@/components/me/Settings'
 import SetNewpwd from '@/components/me/SetNewpwd'
+import SetHead from '@/components/me/SetHead'
 
 Vue.use(Router)
 
@@ -58,6 +59,10 @@ export default new Router({
         {
           path: 'setNewpwd',
           component: SetNewpwd
+        },
+        {
+          path: 'setHead',
+          component: SetHead
         }
       ]
     }

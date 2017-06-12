@@ -2,7 +2,7 @@
   #me
     v-headBar(title="我的" :addon="addon" :showBack="false")
     .headinfo
-      img.headimg(src="../../assets/img/head.jpg")
+      img.headimg(:src="getHead()")
       .nickname {{account.nickname}}
       .phone {{account.phone}}
     v-footBar
@@ -33,6 +33,11 @@ export default {
       },
       account: {}
     }
+  },
+  methods: {
+    getHead () {
+      return '/static/img/head/' + this.account.headimg
+    }
   }
 }
 </script>
@@ -45,10 +50,10 @@ export default {
       background-color: rgba(36, 166, 195, 0.86);
       text-align: center;
       .headimg
-        width: 60px;
-        height: 60px;
+        width: 70px;
+        height: 70px;
         border-radius: 50%;
-        margin: 10px;
+        margin-top: 10px;
       .nickname
         color: #fff;
         margin-top: 10px;

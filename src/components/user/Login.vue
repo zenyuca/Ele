@@ -93,7 +93,8 @@ export default {
               this.login.pwd = ''
             }
             this.login.rememberpwd = this.rememberpwd
-            this.login.islogin = true
+            this.login.headimg = response.data.headimg
+            this.login.loginToken = response.data.loginToken
             this.$localStorage.set(ACCOUNT_LSKEY, this.login)
             this.$router.push('/me/')
           } else {

@@ -1,5 +1,5 @@
 <template lang="pug">
-  #me
+  #settings
     v-headBar(title="设置")
     v-spliter(height="7")
     ul.normal-list
@@ -10,6 +10,9 @@
         label.normal-label 昵称
         i.arrow.el-icon-arrow-right
         span.normal-value {{account.nickname}}
+      li.row
+        label.normal-label 更改头像
+        router-link.arrow.el-icon-arrow-right(to="/me/setHead" tag="i")
     v-spliter(height="10")
     ul.normal-list
       li.row
@@ -25,9 +28,10 @@
 import HeadBar from '@/components/common/HeadBar'
 import FootBar from '@/components/common/FootBar'
 import Spliter from '@/components/common/Spliter'
-import { ACCOUNT_LSKEY } from '@/config'
+import { Toast, Indicator } from 'mint-ui'
+import { ACCOUNT_LSKEY, OK_STATUS } from '@/config'
 export default {
-  name: 'me',
+  name: 'settings',
   created () {
     let account = this.$localStorage.get(ACCOUNT_LSKEY)
     if (!account.nickname) {
@@ -47,10 +51,38 @@ export default {
   },
   methods: {
     doexit () {
-      let account = this.$localStorage.get(ACCOUNT_LSKEY)
-      account.islogin = false
-      this.$localStorage.set(ACCOUNT_LSKEY, account)
-      this.$router.replace('/user/login')
+      Indicator.open({
+        text: '登出中...',
+        spinnerType: 'fading-circle'
+      })
+      this.$http.post('/mobile/user/login_out.html', {
+        phone: this.account.phone
+      }, {
+        timeout: 5000,
+        emulateJSON: true
+      }).then((response) => {
+        Indicator.close()
+        response = response.body
+        let status = response.status
+        if (status === OK_STATUS) {
+          delete this.account.loginToken
+          this.$localStorage.set(ACCOUNT_LSKEY, this.account)
+          this.$router.replace('/user/login')
+        } else {
+          Toast({
+            message: response.msg,
+            position: 'bottom',
+            duration: 1500
+          })
+        }
+      }, (response) => {
+        Indicator.close()
+        Toast({
+          message: '请求超时',
+          position: 'bottom',
+          duration: 1500
+        })
+      })
     }
   }
 }
@@ -60,19 +92,6 @@ export default {
 <style lang="stylus">
   @import "../../assets/stylus/base.styl"
   
-  #me
-    .headinfo
-      height: 150px;
-      background-color: rgba(36, 166, 195, 0.86);
-      text-align: center;
-      .headimg
-        width: 60px;
-        height: 60px;
-        border-radius: 50%;
-        margin: 10px;
-      .nickname
-        color: #fff;
-        margin-top: 10px;
-      .phone
-        margin-top: 10px;
+  // #settings
+    
 </style>

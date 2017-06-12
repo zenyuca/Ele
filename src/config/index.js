@@ -14,8 +14,25 @@ const localStorage = {
 // 返回成功的标志
 const OK_STATUS = 0
 
+// 系统默认头像集合
+const HEAD_LIST = [
+  'headimg1.jpg',
+  'headimg2.jpg',
+  'headimg3.jpg',
+  'headimg4.jpg',
+  'headimg5.jpg',
+  'headimg6.jpg',
+  'headimg7.jpg',
+  'headimg8.jpg',
+  'headimg9.jpg',
+  'headimg10.jpg',
+  'headimg11.jpg',
+  'headimg12.jpg'
+]
+
 export {
   ACCOUNT_LSKEY,
   OK_STATUS,
-  localStorage
+  localStorage,
+  HEAD_LIST
 }
