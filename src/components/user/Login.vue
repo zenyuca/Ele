@@ -17,7 +17,7 @@
     .input-item
       .form-group
         .footer
-          router-link.tab(to="/losepwd" tag="span") 忘记密码
+          router-link.tab(to="/user/losepwd" tag="span") 忘记密码
           span.tab()
             el-checkbox(v-model="rememberpwd") 记住密码
 </template>
@@ -26,6 +26,7 @@
 import HeadBar from '@/components/common/HeadBar'
 import Spliter from '@/components/common/Spliter'
 import { Toast, Indicator } from 'mint-ui'
+import { ACCOUNT_LSKEY, OK_STATUS } from '@/config'
 
 export default {
   name: 'login',
@@ -33,9 +34,8 @@ export default {
     next()
   },
   created () {
-    let account = this.$localStorage.get('account')
+    let account = this.$localStorage.get(ACCOUNT_LSKEY)
     if (account) {
-      account = JSON.parse(account)
       this.rememberpwd = account.rememberpwd
       this.login.phone = account.phone
       this.login.pwd = account.pwd
@@ -68,7 +68,7 @@ export default {
     select (id) {
       this.isActive = id
       if (id === 2) {
-        this.$router.push('/register')
+        this.$router.push('/user/register')
       }
     },
     dologin () {
@@ -87,15 +87,15 @@ export default {
           Indicator.close()
           response = response.body
           let status = response.status
-          if (status === 0) {
+          if (status === OK_STATUS) {
             if (this.rememberpwd) {
             } else {
               this.login.pwd = ''
             }
             this.login.rememberpwd = this.rememberpwd
-            this.$localStorage.set('account', JSON.stringify(this.login))
-            this.$store.state.account = response.data
-            this.$router.push('/me')
+            this.login.islogin = true
+            this.$localStorage.set(ACCOUNT_LSKEY, this.login)
+            this.$router.push('/me/')
           } else {
             Toast({
               message: response.msg,

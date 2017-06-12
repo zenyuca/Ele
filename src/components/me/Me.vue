@@ -11,17 +11,15 @@
 <script>
 import HeadBar from '@/components/common/HeadBar'
 import FootBar from '@/components/common/FootBar'
+import { ACCOUNT_LSKEY } from '@/config'
 export default {
   name: 'me',
   created () {
-    let account = this.$localStorage.get('account')
-    if (account) {
-      account = JSON.parse(account)
-      if (!account.nickname) {
-        account.nickname = '未设置昵称'
-      }
-      this.account = account
+    let account = this.$localStorage.get(ACCOUNT_LSKEY)
+    if (!account.nickname) {
+      account.nickname = '未设置昵称'
     }
+    this.account = account
   },
   components: {
     'v-headBar': HeadBar,
@@ -31,7 +29,7 @@ export default {
     return {
       addon: {
         title: '设置',
-        route: '/settings'
+        route: '/me/settings'
       },
       account: {}
     }

@@ -19,13 +19,14 @@
 import HeadBar from '@/components/common/HeadBar'
 import Spliter from '@/components/common/Spliter'
 import { Toast } from 'mint-ui'
+import { ACCOUNT_LSKEY, OK_STATUS } from '@/config'
 export default {
   name: 'losepwd',
   beforeRouteEnter (to, from, next) {
-    if (from.path === '/losepwd') {
+    if (from.path === '/user/losepwd') {
       next()
     } else {
-      next('/losepwd')
+      next('/user/losepwd')
     }
   },
   components: {
@@ -71,9 +72,12 @@ export default {
           }).then((response) => {
             response = response.body
             let status = response.status
-            if (status === 0) {
-              this.$localStorage.remove('account')
-              this.$router.replace('/login')
+            if (status === OK_STATUS) {
+              var account = this.$localStorage.get(ACCOUNT_LSKEY)
+              account.rememberpwd = false
+              account.pwd = ''
+              this.$localStorage.set(ACCOUNT_LSKEY, account)
+              this.$router.replace('/user/login')
             } else {
               Toast({
                 message: response.msg,

@@ -17,6 +17,7 @@
 import HeadBar from '@/components/common/HeadBar'
 import Spliter from '@/components/common/Spliter'
 import { Toast } from 'mint-ui'
+import { OK_STATUS } from '@/config'
 export default {
   name: 'losepwd',
   components: {
@@ -52,9 +53,9 @@ export default {
         }).then((response) => {
           response = response.body
           let status = response.status
-          if (status === 0) {
+          if (status === OK_STATUS) {
             this.$store.state.findpwd = response.data
-            this.$router.replace('/setpwd')
+            this.$router.replace('/user/setpwd')
           } else {
             Toast({
               message: response.msg,

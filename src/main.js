@@ -4,6 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from './store'
+import { localStorage } from './config'
 import VueResource from 'vue-resource'
 import ElementUI from 'element-ui'
 import MintUI from 'mint-ui'
@@ -24,6 +25,7 @@ new Vue({
   el: '#app',
   router,
   store,
+  localStorage,
   template: '<App/>',
   components: { App }
 })

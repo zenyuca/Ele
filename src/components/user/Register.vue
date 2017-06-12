@@ -30,6 +30,7 @@
 import HeadBar from '@/components/common/HeadBar'
 import Spliter from '@/components/common/Spliter'
 import { Toast } from 'mint-ui'
+import { OK_STATUS } from '@/config'
 export default {
   name: 'register',
   beforeRouteEnter (to, from, next) {
@@ -63,7 +64,7 @@ export default {
     select (id) {
       this.isActive = id
       if (id === 1) {
-        this.$router.push('/login')
+        this.$router.push('/user/login')
       }
     },
     doregister () {
@@ -86,8 +87,8 @@ export default {
           }).then((response) => {
             response = response.body
             let status = response.status
-            if (status === 0) {
-              this.$router.replace('/login')
+            if (status === OK_STATUS) {
+              this.$router.replace('/user/login')
             } else {
               Toast({
                 message: response.msg,

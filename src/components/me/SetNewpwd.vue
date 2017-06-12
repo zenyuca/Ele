@@ -25,10 +25,10 @@ import { Toast } from 'mint-ui'
 export default {
   name: 'setNewpwd',
   beforeRouteEnter (to, from, next) {
-    if (from.path === '/settings') {
+    if (from.path === '/me/settings') {
       next()
     } else {
-      next('/settings')
+      next('/me/settings')
     }
   },
   components: {

@@ -14,7 +14,7 @@
     ul.normal-list
       li.row
         label.normal-label 修改密码
-        router-link.arrow.el-icon-arrow-right(to="/setNewpwd" tag="i")
+        router-link.arrow.el-icon-arrow-right(to="/me/setNewpwd" tag="i")
     v-spliter(height="10")
     .input-item
       .form-group
@@ -25,17 +25,15 @@
 import HeadBar from '@/components/common/HeadBar'
 import FootBar from '@/components/common/FootBar'
 import Spliter from '@/components/common/Spliter'
+import { ACCOUNT_LSKEY } from '@/config'
 export default {
   name: 'me',
   created () {
-    let account = this.$localStorage.get('account')
-    if (account) {
-      account = JSON.parse(account)
-      if (!account.nickname) {
-        account.nickname = '未设置昵称'
-      }
-      this.account = account
+    let account = this.$localStorage.get(ACCOUNT_LSKEY)
+    if (!account.nickname) {
+      account.nickname = '未设置昵称'
     }
+    this.account = account
   },
   components: {
     'v-headBar': HeadBar,
@@ -49,9 +47,10 @@ export default {
   },
   methods: {
     doexit () {
-      // this.$store.state.account = {}
-      // this.$localStorage.remove('account')
-      this.$router.replace('/login')
+      let account = this.$localStorage.get(ACCOUNT_LSKEY)
+      account.islogin = false
+      this.$localStorage.set(ACCOUNT_LSKEY, account)
+      this.$router.replace('/user/login')
     }
   }
 }

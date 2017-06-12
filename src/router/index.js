@@ -1,59 +1,65 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-// import Hello from '@/components/Hello'
-import Login from '@/components/register/Login'
-import Register from '@/components/register/Register'
-import Losepwd from '@/components/register/Losepwd'
-import Setpwd from '@/components/register/Setpwd'
-
+import App from '@/App'
+// user
+import Login from '@/components/user/Login'
+import Register from '@/components/user/Register'
+import Losepwd from '@/components/user/Losepwd'
+import Setpwd from '@/components/user/Setpwd'
+// me
 import Me from '@/components/me/Me'
-import Settings from '@/components/settings/Settings'
-import SetNewpwd from '@/components/settings/SetNewpwd'
+import Settings from '@/components/me/Settings'
+import SetNewpwd from '@/components/me/SetNewpwd'
 
 Vue.use(Router)
 
 export default new Router({
   mode: 'history',
+  base: '/ele/',
   routes: [
     {
       path: '/',
-      name: 'Index',
       component: Login
     },
     {
-      path: '/login',
-      name: 'Login',
-      component: Login
+      path: '/user/',
+      component: App,
+      children: [
+        {
+          path: 'login',
+          component: Login
+        },
+        {
+          path: 'register',
+          component: Register
+        },
+        {
+          path: 'losepwd',
+          component: Losepwd
+        },
+        {
+          path: 'setpwd',
+          component: Setpwd
+        }
+      ]
     },
     {
-      path: '/register',
-      name: 'Register',
-      component: Register
-    },
-    {
-      path: '/losepwd',
-      name: 'Losepwd',
-      component: Losepwd
-    },
-    {
-      path: '/setpwd',
-      name: 'Setpwd',
-      component: Setpwd
-    },
-    {
-      path: '/me',
-      name: 'Me',
-      component: Me
-    },
-    {
-      path: '/settings',
-      name: 'Settings',
-      component: Settings
-    },
-    {
-      path: '/setNewpwd',
-      name: 'SetNewpwd',
-      component: SetNewpwd
+      path: '/me/',
+      component: App,
+      children: [
+        {
+          path: '',
+          component: Me
+        },
+        {
+          path: 'settings',
+          component: Settings
+        },
+        {
+          path: 'setNewpwd',
+          component: SetNewpwd
+        }
+      ]
     }
   ]
 })
