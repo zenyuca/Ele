@@ -37,6 +37,7 @@ export default {
     height: 4.5em;
     display: flex;
     border-top: 1px solid #d8d8d8;
+    font-size: 16px;
     .item
       flex: 1
       text-align: center;

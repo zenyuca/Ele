@@ -33,20 +33,22 @@ export default {
   beforeRouteEnter (to, from, next) {
     next()
   },
-  created () {
+  components: {
+    'v-headBar': HeadBar,
+    'v-spliter': Spliter
+  },
+  mounted () {
     let account = this.$localStorage.get(ACCOUNT_LSKEY)
     if (account) {
       this.rememberpwd = account.rememberpwd
       this.login.phone = account.phone
       this.login.pwd = account.pwd
+      this.account = account
     }
-  },
-  components: {
-    'v-headBar': HeadBar,
-    'v-spliter': Spliter
   },
   data () {
     return {
+      account: {},
       isActive: 1,
       login: {
         phone: '',
@@ -60,6 +62,9 @@ export default {
     login: {
       handler (curVal, oldVal) {
         this.loginValidator()
+        if (curVal.phone.length !== 11) {
+          this.login.pwd = ''
+        }
       },
       deep: true
     }

@@ -32,17 +32,17 @@ import { Toast, Indicator } from 'mint-ui'
 import { ACCOUNT_LSKEY, OK_STATUS } from '@/config'
 export default {
   name: 'settings',
-  created () {
+  components: {
+    'v-headBar': HeadBar,
+    'v-footBar': FootBar,
+    'v-spliter': Spliter
+  },
+  mounted () {
     let account = this.$localStorage.get(ACCOUNT_LSKEY)
     if (!account.nickname) {
       account.nickname = '未设置昵称'
     }
     this.account = account
-  },
-  components: {
-    'v-headBar': HeadBar,
-    'v-footBar': FootBar,
-    'v-spliter': Spliter
   },
   data () {
     return {

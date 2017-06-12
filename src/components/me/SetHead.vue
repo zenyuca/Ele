@@ -3,7 +3,7 @@
     v-headBar(title="更改头像")
     ul.headlist
       li.headitem(v-for="head in headList")
-        img.headimg(:class="{defaultHead: head === headSelected, active: head === account.headimg}" :src="getHead(head)" @click="selectHead(head)" v-model="headSelected")
+        img.headimg(:class="{defaultHead: head === headSelected, active: head === account.headimg}"  :src="getHead(head)" @click="selectHead(head)" v-model="headSelected")
     v-spliter
     .input-item
       .form-group
@@ -20,15 +20,15 @@ export default {
   beforeRouteEnter (to, from, next) {
     next()
   },
-  created () {
+  components: {
+    'v-headBar': HeadBar,
+    'v-spliter': Spliter
+  },
+  mounted () {
     let account = this.$localStorage.get(ACCOUNT_LSKEY)
     if (account) {
       this.account = account
     }
-  },
-  components: {
-    'v-headBar': HeadBar,
-    'v-spliter': Spliter
   },
   data () {
     return {
@@ -57,6 +57,9 @@ export default {
     },
     selectHead (head) {
       this.headSelected = head
+      if (this.headSelected === this.account.headimg) {
+        this.headSelected = ''
+      }
     },
     donewpwd () {
       if (this.newpwdPass) {
@@ -121,19 +124,20 @@ export default {
       padding: 5px;
       .headitem
         display: inline-block;
-        width: calc(100% / 4)
+        margin: 2px;
+        width: calc((100% - 18px) / 4)
         @media screen and (min-width: 600px) {
-          width: calc(100% / 6)
+          width: calc((100% - 26px) / 6)
         }
         @media screen and (min-width: 900px) {
-          width: calc(100% / 8)
+          width: calc((100% - 34px) / 8)
         }
         @media screen and (min-width: 1200px) {
-          width: calc(100% / 16)
+          width: calc((100% - 62.1px) / 16)
         }
         .headimg
           box-sizing: border-box;
-          padding: 10px;
+          padding: 5px;
           width: 100%;
           height: 100%;
           border-radius: 50%;

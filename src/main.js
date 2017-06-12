@@ -4,12 +4,12 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from './store'
-import { localStorage } from './config'
+import { ACCOUNT_LSKEY, localStorage } from './config'
 import VueResource from 'vue-resource'
 import ElementUI from 'element-ui'
 import MintUI from 'mint-ui'
 import VueLocalStorage from 'vue-localstorage'
-import { ACCOUNT_LSKEY } from '@/config'
+import VueScroller from 'vue-scroller'
 
 import 'element-ui/lib/theme-default/index.css'
 import 'mint-ui/lib/style.css'
@@ -19,6 +19,7 @@ Vue.use(VueResource)
 Vue.use(ElementUI)
 Vue.use(MintUI)
 Vue.use(VueLocalStorage)
+Vue.use(VueScroller)
 
 Vue.config.productionTip = false
 
@@ -38,6 +39,8 @@ Vue.nextTick(() => {
   if (account) {
     if (!account.hasOwnProperty('loginToken')) {
       vm.$router.replace('/user/login')
+    } else {
+      vm.$router.replace('/me')
     }
   }
 })
@@ -49,6 +52,11 @@ router.beforeEach((to, from, next) => {
     if (!account.hasOwnProperty('loginToken')) {
       if (!/^\/user\/.*$/.test(to.path)) {
         next('/user/login')
+        return
+      }
+    } else {
+      if (/^\/user\/.*$/.test(to.path) || to.path === '/') {
+        next(from.path)
         return
       }
     }
