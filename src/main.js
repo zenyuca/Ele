@@ -37,10 +37,13 @@ const vm = new Vue({
 Vue.nextTick(() => {
   const account = Vue.localStorage.get(ACCOUNT_LSKEY)
   if (account) {
+    let path = vm.$route.path
     if (!account.hasOwnProperty('loginToken')) {
-      vm.$router.replace('/user/login')
+      if (/^\/user\/.*$/.test(path) || path === '/') {
+      } else {
+        vm.$router.replace('/user/login')
+      }
     } else {
-      let path = vm.$route.path
       if (/^\/user\/.*$/.test(path) || path === '/') {
         vm.$router.replace('/me')
       }
