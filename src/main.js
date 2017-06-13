@@ -40,7 +40,10 @@ Vue.nextTick(() => {
     if (!account.hasOwnProperty('loginToken')) {
       vm.$router.replace('/user/login')
     } else {
-      vm.$router.replace('/me')
+      let path = vm.$route.path
+      if (/^\/user\/.*$/.test(path) || path === '/') {
+        vm.$router.replace('/me')
+      }
     }
   }
 })

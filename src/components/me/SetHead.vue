@@ -125,15 +125,15 @@ export default {
       .headitem
         display: inline-block;
         margin: 2px;
-        width: calc((100% - 18px) / 4)
+        width: calc((100% - 18px) / 4);
         @media screen and (min-width: 600px) {
-          width: calc((100% - 26px) / 6)
+          width: calc((100% - 26px) / 6);
         }
         @media screen and (min-width: 900px) {
-          width: calc((100% - 34px) / 8)
+          width: calc((100% - 34px) / 8);
         }
         @media screen and (min-width: 1200px) {
-          width: calc((100% - 62.1px) / 16)
+          width: calc((100% - 62.1px) / 16);
         }
         .headimg
           box-sizing: border-box;
