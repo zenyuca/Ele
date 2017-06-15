@@ -30,7 +30,6 @@ import HeadBar from '@/components/common/HeadBar'
 import FootBar from '@/components/common/FootBar'
 import Spliter from '@/components/common/Spliter'
 
-import { ACCOUNT_LSKEY } from '@/config'
 export default {
   name: 'me',
   components: {
@@ -39,7 +38,7 @@ export default {
     'v-spliter': Spliter
   },
   mounted () {
-    let account = this.$localStorage.get(ACCOUNT_LSKEY)
+    let account = this.$store.state.account
     if (!account.nickname) {
       account.nickname = '未设置昵称'
     }
@@ -49,7 +48,7 @@ export default {
     return {
       addon: {
         title: '设置',
-        route: '/me/settings'
+        route: '/account/settings'
       },
       account: {}
     }

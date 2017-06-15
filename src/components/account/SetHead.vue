@@ -25,10 +25,8 @@ export default {
     'v-spliter': Spliter
   },
   mounted () {
-    let account = this.$localStorage.get(ACCOUNT_LSKEY)
-    if (account) {
-      this.account = account
-    }
+    let account = this.$store.state.account
+    this.account = account
   },
   data () {
     return {

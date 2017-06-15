@@ -7,10 +7,10 @@ import Register from '@/components/user/Register'
 import Losepwd from '@/components/user/Losepwd'
 import Setpwd from '@/components/user/Setpwd'
 // me
-import Me from '@/components/me/Me'
-import Settings from '@/components/me/Settings'
-import SetNewpwd from '@/components/me/SetNewpwd'
-import SetHead from '@/components/me/SetHead'
+import Me from '@/components/account/Me'
+import Settings from '@/components/account/Settings'
+import SetNewpwd from '@/components/account/SetNewpwd'
+import SetHead from '@/components/account/SetHead'
 
 Vue.use(Router)
 
@@ -20,7 +20,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      component: Login
+      component: Me
     },
     {
       path: '/user/',
@@ -45,7 +45,7 @@ export default new Router({
       ]
     },
     {
-      path: '/me/',
+      path: '/account/',
       component: App,
       children: [
         {

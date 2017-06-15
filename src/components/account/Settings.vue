@@ -12,16 +12,16 @@
         span.normal-value {{account.nickname}}
       li.row
         label.normal-label 更改头像
-        router-link.arrow.el-icon-arrow-right(to="/me/setHead" tag="i")
+        router-link.arrow.el-icon-arrow-right(to="/account/setHead" tag="i")
     v-spliter(height="10")
     ul.normal-list
       li.row
         label.normal-label 修改密码
-        router-link.arrow.el-icon-arrow-right(to="/me/setNewpwd" tag="i")
+        router-link.arrow.el-icon-arrow-right(to="/account/setNewpwd" tag="i")
     v-spliter(height="10")
     .input-item
       .form-group
-        input.btn.btn-login( type="button" value="退出登录" @click="doexit()") 
+        input.btn.btn-login( type="button" value="退出登录" @click="dologout()") 
 </template>
 
 <script>
@@ -29,7 +29,7 @@ import HeadBar from '@/components/common/HeadBar'
 import FootBar from '@/components/common/FootBar'
 import Spliter from '@/components/common/Spliter'
 import { Toast, Indicator } from 'mint-ui'
-import { ACCOUNT_LSKEY, OK_STATUS } from '@/config'
+import { TOKEN_LSKEY, OK_STATUS } from '@/config'
 export default {
   name: 'settings',
   components: {
@@ -38,7 +38,7 @@ export default {
     'v-spliter': Spliter
   },
   mounted () {
-    let account = this.$localStorage.get(ACCOUNT_LSKEY)
+    let account = this.$store.state.account
     if (!account.nickname) {
       account.nickname = '未设置昵称'
     }
@@ -50,7 +50,7 @@ export default {
     }
   },
   methods: {
-    doexit () {
+    dologout () {
       Indicator.open({
         text: '登出中...',
         spinnerType: 'fading-circle'
@@ -65,8 +65,7 @@ export default {
         response = response.body
         let status = response.status
         if (status === OK_STATUS) {
-          delete this.account.loginToken
-          this.$localStorage.set(ACCOUNT_LSKEY, this.account)
+          this.$localStorage.remove(TOKEN_LSKEY)
           this.$router.replace('/user/login')
         } else {
           Toast({

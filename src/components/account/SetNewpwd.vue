@@ -26,10 +26,10 @@ import { ACCOUNT_LSKEY, OK_STATUS } from '@/config'
 export default {
   name: 'setNewpwd',
   beforeRouteEnter (to, from, next) {
-    if (from.path === '/me/settings') {
+    if (from.path === '/account/settings') {
       next()
     } else {
-      next('/me/settings')
+      next('/account/settings')
     }
   },
   components: {

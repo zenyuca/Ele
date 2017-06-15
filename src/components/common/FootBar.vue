@@ -1,13 +1,13 @@
 <template lang="pug">
   #footeBar
     .item
-      router-link(to="/" tag="div")
+      router-link(to="/user/login" tag="div")
         .row.up
           .el-icon-date
         .row.down
           span 掌上用电
     .item
-      router-link(to="/me" tag="div")
+      router-link(to="/account" tag="div")
         .row.up
           i.el-icon-menu
         .row.down

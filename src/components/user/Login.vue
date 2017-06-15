@@ -26,7 +26,8 @@
 import HeadBar from '@/components/common/HeadBar'
 import Spliter from '@/components/common/Spliter'
 import { Toast, Indicator } from 'mint-ui'
-import { ACCOUNT_LSKEY, OK_STATUS } from '@/config'
+import { TOKEN_LSKEY, ACCOUNT_LSKEY, OK_STATUS } from '@/config'
+import Base64 from 'js-base64'
 
 export default {
   name: 'login',
@@ -38,8 +39,8 @@ export default {
     'v-spliter': Spliter
   },
   mounted () {
-    let account = this.$localStorage.get(ACCOUNT_LSKEY)
-    if (account) {
+    let account = this.$store.state.account
+    if (account.phone) {
       this.rememberpwd = account.rememberpwd
       this.login.phone = account.phone
       this.login.pwd = account.pwd
@@ -62,9 +63,9 @@ export default {
     login: {
       handler (curVal, oldVal) {
         this.loginValidator()
-        if (curVal.phone.length !== 11) {
-          this.login.pwd = ''
-        }
+        // if (curVal.phone.length !== 11) {
+        //   this.login.pwd = ''
+        // }
       },
       deep: true
     }
@@ -99,9 +100,12 @@ export default {
             }
             this.login.rememberpwd = this.rememberpwd
             this.login.headimg = response.data.headimg
-            this.login.loginToken = response.data.loginToken
-            this.$localStorage.set(ACCOUNT_LSKEY, this.login)
-            this.$router.push('/me/')
+
+            this.$store.state.account = this.login
+
+            this.$localStorage.set(ACCOUNT_LSKEY, Base64.Base64.encode(JSON.stringify(this.login)))
+            this.$localStorage.set(TOKEN_LSKEY, response.data.loginToken)
+            this.$router.push('/account/')
           } else {
             Toast({
               message: response.msg,
