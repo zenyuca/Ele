@@ -4,17 +4,18 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from './store'
-import { ACCOUNT_LSKEY, TOKEN_LSKEY, localStorage } from './config'
+import { TOKEN_LSKEY, localStorage } from './config'
 import VueResource from 'vue-resource'
 import ElementUI from 'element-ui'
 import MintUI from 'mint-ui'
 import VueLocalStorage from 'vue-localstorage'
 import VueScroller from 'vue-scroller'
-import Base64 from 'js-base64'
+import CommonJS from '@/assets/js/common'
 
 import 'element-ui/lib/theme-default/index.css'
 import 'mint-ui/lib/style.css'
 import '@/assets/stylus/reset.css'
+import '@/assets/stylus/base.styl'
 
 Vue.use(VueResource)
 Vue.use(ElementUI)
@@ -33,12 +34,8 @@ new Vue({
   template: '<App/>',
   components: { App },
   created () {
-    // µÇÂ¼À¹½Ø £¨Ë¢ÐÂÒ³ÃæÊ±£©
-    let account = this.$localStorage.get(ACCOUNT_LSKEY)
-    if (account) {
-      account = Base64.Base64.decode(account)
-      this.$store.state.account = JSON.parse(account)
-    }
+    // ç™»å½•æ‹¦æˆª ï¼ˆåˆ·æ–°é¡µé¢æ—¶ï¼‰
+    CommonJS.storeAccount(this)
     const token = this.$localStorage.get(TOKEN_LSKEY)
     if (token) {
       if (this.toUser()) {
@@ -61,7 +58,7 @@ new Vue({
   }
 })
 
-// µÇÂ¼À¹½Ø£¬£¨Â·ÓÉÌø×ªÊ±£©
+// ç™»å½•æ‹¦æˆªï¼Œï¼ˆè·¯ç”±è·³è½¬æ—¶ï¼‰
 router.beforeEach((to, from, next) => {
   const token = Vue.localStorage.get(TOKEN_LSKEY)
   if (token) {
@@ -82,3 +79,12 @@ function toUser (to) {
   let path = to.matched[0].path
   return path === '/user'
 }
+
+// è¯·æ±‚æ‹¦æˆªå™¨
+Vue.http.interceptors.push((request, next) => {
+  MintUI.Indicator.open()
+  next((response) => {
+    MintUI.Indicator.close()
+    return response
+  })
+})

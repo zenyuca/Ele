@@ -1,7 +1,7 @@
 <template lang="pug">
   #settings
     v-headBar(title="设置")
-    v-spliter(height="7")
+    v-spliter(height="0.8")
     ul.normal-list
       li.row
         label.normal-label 账号
@@ -13,12 +13,12 @@
       li.row
         label.normal-label 更改头像
         router-link.arrow.el-icon-arrow-right(to="/account/setHead" tag="i")
-    v-spliter(height="10")
+    v-spliter(height="1")
     ul.normal-list
       li.row
         label.normal-label 修改密码
         router-link.arrow.el-icon-arrow-right(to="/account/setNewpwd" tag="i")
-    v-spliter(height="10")
+    v-spliter(height="1")
     .input-item
       .form-group
         input.btn.btn-login( type="button" value="退出登录" @click="dologout()") 
@@ -37,7 +37,7 @@ export default {
     'v-footBar': FootBar,
     'v-spliter': Spliter
   },
-  mounted () {
+  created () {
     let account = this.$store.state.account
     if (!account.nickname) {
       account.nickname = '未设置昵称'

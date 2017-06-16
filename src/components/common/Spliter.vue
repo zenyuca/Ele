@@ -1,5 +1,5 @@
 <template lang="pug">
-  #spliter(:style="{height: height + 'px'}")
+  #spliter(:style="{height: height + 'rem'}")
 </template>
 
 <script>
@@ -9,7 +9,7 @@ export default {
     height: {
       type: String,
       default () {
-        return '15'
+        return '1'
       }
     }
   },

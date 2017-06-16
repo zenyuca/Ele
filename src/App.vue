@@ -1,15 +1,16 @@
 <template lang="pug">
-  #app
+  #main
     router-view
 </template>
 
 <script>
 export default {
-  name: 'app'
+  name: 'main'
 }
 </script>
 
 <style lang="stylus">
-  #app
-    font-size: 14px;
+  #main
+    // 
+    
 </style>

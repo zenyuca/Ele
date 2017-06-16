@@ -25,9 +25,9 @@
 <script>
 import HeadBar from '@/components/common/HeadBar'
 import Spliter from '@/components/common/Spliter'
-import { Toast, Indicator } from 'mint-ui'
-import { TOKEN_LSKEY, ACCOUNT_LSKEY, OK_STATUS } from '@/config'
-import Base64 from 'js-base64'
+import { Toast } from 'mint-ui'
+import { TOKEN_LSKEY, OK_STATUS } from '@/config'
+import CommonJS from '@/assets/js/common'
 
 export default {
   name: 'login',
@@ -38,7 +38,7 @@ export default {
     'v-headBar': HeadBar,
     'v-spliter': Spliter
   },
-  mounted () {
+  created () {
     let account = this.$store.state.account
     if (account.phone) {
       this.rememberpwd = account.rememberpwd
@@ -63,9 +63,6 @@ export default {
     login: {
       handler (curVal, oldVal) {
         this.loginValidator()
-        // if (curVal.phone.length !== 11) {
-        //   this.login.pwd = ''
-        // }
       },
       deep: true
     }
@@ -79,10 +76,6 @@ export default {
     },
     dologin () {
       if (this.loginPass) {
-        Indicator.open({
-          text: '登录中...',
-          spinnerType: 'fading-circle'
-        })
         this.$http.post('/mobile/user/login.html', {
           phone: this.login.phone,
           pwd: this.login.pwd
@@ -90,7 +83,6 @@ export default {
           timeout: 5000,
           emulateJSON: true
         }).then((response) => {
-          Indicator.close()
           response = response.body
           let status = response.status
           if (status === OK_STATUS) {
@@ -103,7 +95,7 @@ export default {
 
             this.$store.state.account = this.login
 
-            this.$localStorage.set(ACCOUNT_LSKEY, Base64.Base64.encode(JSON.stringify(this.login)))
+            CommonJS.setAccount(this, this.login)
             this.$localStorage.set(TOKEN_LSKEY, response.data.loginToken)
             this.$router.push('/account/')
           } else {
@@ -114,7 +106,6 @@ export default {
             })
           }
         }, (response) => {
-          Indicator.close()
           Toast({
             message: '请求超时',
             position: 'bottom',
@@ -135,20 +126,17 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="stylus">
-  @import "../../assets/stylus/base.styl"
-
   #login
     .nav-bar
       display: flex;
-      margin: 0.3em 0;
+      margin: 0.3rem 0;
       .tab-item
         flex: 1;
         text-align: center;
-        height: 3.3em;
-        line-height: 3.3em;
-        margin: 0 20px;
+        height: 3.3rem;
+        line-height: 3.3rem;
+        margin: 0 1rem;
         &:last-child
           border-right: none;
         &.isActive
@@ -159,8 +147,10 @@ export default {
   .footer
     display: flex;
     width: 100%;
-    margin-top: 20px;
+    margin-top: 1rem;
     .tab
       flex: 1;
       text-align: center;
+      .el-checkbox__label
+        font-size: 1rem;
 </style>

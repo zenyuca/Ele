@@ -19,7 +19,9 @@
 import HeadBar from '@/components/common/HeadBar'
 import Spliter from '@/components/common/Spliter'
 import { Toast } from 'mint-ui'
-import { ACCOUNT_LSKEY, OK_STATUS } from '@/config'
+import { OK_STATUS } from '@/config'
+import CommonJS from '@/assets/js/common'
+
 export default {
   name: 'losepwd',
   beforeRouteEnter (to, from, next) {
@@ -73,10 +75,11 @@ export default {
             response = response.body
             let status = response.status
             if (status === OK_STATUS) {
-              var account = this.$localStorage.get(ACCOUNT_LSKEY)
+              var account = CommonJS.getAccount(this)
               account.rememberpwd = false
               account.pwd = ''
-              this.$localStorage.set(ACCOUNT_LSKEY, account)
+              CommonJS.setAccount(this, account)
+              CommonJS.storeAccount(this)
               this.$router.replace('/user/login')
             } else {
               Toast({
@@ -109,6 +112,5 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="stylus">
-  @import "../../assets/stylus/base.styl"
 
 </style>

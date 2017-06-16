@@ -49,24 +49,24 @@ export default {
 <style lang="stylus">
   #headBar
     background-color: #000000;
-    font-size: 16px;
     color: #ffffff;
-    height: 3.5em;
-    line-height: 3.5em;
+    font-size: 1rem;
+    height: 3.5rem;
+    line-height: 3.5rem;
     text-align: center;
     .back
       position: absolute;
       left: 0;
       top: 0;
-      width: 2.5em;
-      height: 3.5em;
+      width: 2.5rem;
+      height: 3.5rem;
       float: left;
     .addon
       position: absolute;
       right: 0;
       top: 0;
-      width: 4.5em;
-      height: 3.5em;
+      width: 4.5rem;
+      height: 3.5rem;
       text-align: center;
       float: right;
 </style>

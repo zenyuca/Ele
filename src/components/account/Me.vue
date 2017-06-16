@@ -1,27 +1,27 @@
 <template lang="pug">
   #me
     v-headBar(title="我的" :addon="addon" :showBack="false")
-    .content
-      scroller(:on-refresh="refresh"  :on-infinite="infinite"  refreshText="努力加载中……")
-        .headinfo
-          img.headimg(:src="getHead()")
-          .nickname {{account.nickname}}
-          .phone {{account.phone}}
-        v-spliter
-        .headinfo
-          img.headimg(:src="getHead()")
-          .nickname {{account.nickname}}
-          .phone {{account.phone}}
-        v-spliter
-        .headinfo
-          img.headimg(:src="getHead()")
-          .nickname {{account.nickname}}
-          .phone {{account.phone}}
-        v-spliter
-        .headinfo
-          img.headimg(:src="getHead()")
-          .nickname {{account.nickname}}
-          .phone {{account.phone}}
+    //- .content
+    //-   scroller(:on-refresh="refresh"  :on-infinite="infinite"  refreshText="努力加载中……")
+    //-     .headinfo
+    //-       img.headimg(:src="getHead()")
+    //-       .nickname {{account.nickname}}
+    //-       .phone {{account.phone}}
+    //-     v-spliter
+    //-     .headinfo
+    //-       img.headimg(:src="getHead()")
+    //-       .nickname {{account.nickname}}
+    //-       .phone {{account.phone}}
+    //-     v-spliter
+    //-     .headinfo
+    //-       img.headimg(:src="getHead()")
+    //-       .nickname {{account.nickname}}
+    //-       .phone {{account.phone}}
+    //-     v-spliter
+    //-     .headinfo
+    //-       img.headimg(:src="getHead()")
+    //-       .nickname {{account.nickname}}
+    //-       .phone {{account.phone}}
     v-footBar
 </template>
 
@@ -37,7 +37,7 @@ export default {
     'v-footBar': FootBar,
     'v-spliter': Spliter
   },
-  mounted () {
+  created () {
     let account = this.$store.state.account
     if (!account.nickname) {
       account.nickname = '未设置昵称'
@@ -82,9 +82,8 @@ export default {
       position: absolute;
       left: 0;
       right: 0;
-      top: 3.5em;
-      bottom: 4.5em;
-      font-size: 16px;
+      top: 3.5rem;
+      bottom: 4.5rem;
       .headinfo
         font-size: 14px;
         padding-bottom: 10px;

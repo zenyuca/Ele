@@ -130,9 +130,8 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="stylus">
-  @import "../../assets/stylus/base.styl"
-
   #register
+    font-size: 1rem;
     .nav-bar
       display: flex;
       margin: 0.3em 0;

@@ -34,23 +34,21 @@ export default {
     bottom: 0;
     left: 0;
     right: 0;
-    height: 4.5em;
+    height: 4.5rem;
     display: flex;
     border-top: 1px solid #d8d8d8;
-    font-size: 16px;
     .item
       flex: 1
       text-align: center;
       color: #736f6f;
       .row
-        // height: 2.25em;
+        // height: 4.5rem;
         &.up
-          padding-top: 0.4em;
-          font-size: 2em;
+          padding-top: 0.6rem;
+          font-size: 2.2rem;
         &.down
-          padding-top: 0.3em;
-          // line-height: 0em;
-          font-size: 12px;
+          padding-top: 0.2rem;
+          font-size: 0.9rem;
       .router-link-exact-active
         color: #11a7a2;
 </style>

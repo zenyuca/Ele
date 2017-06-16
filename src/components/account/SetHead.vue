@@ -24,7 +24,7 @@ export default {
     'v-headBar': HeadBar,
     'v-spliter': Spliter
   },
-  mounted () {
+  created () {
     let account = this.$store.state.account
     this.account = account
   },
@@ -116,22 +116,29 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="stylus">
-  @import "../../assets/stylus/base.styl"
   #setHead
     .headlist
       padding: 5px;
       .headitem
         display: inline-block;
-        margin: 2px;
-        width: calc((100% - 18px) / 4);
-        @media screen and (min-width: 600px) {
-          width: calc((100% - 26px) / 6);
+        margin: 0.2rem;
+        @media screen and (min-width: 320px){
+          width: calc((100% - 1.8rem) / 4);
         }
-        @media screen and (min-width: 900px) {
-          width: calc((100% - 34px) / 8);
+        @media screen and (min-width: 375px){
+          width: calc((100% - 1.8rem) / 4);
         }
-        @media screen and (min-width: 1200px) {
-          width: calc((100% - 62.1px) / 16);
+        @media screen and (min-width: 414px){
+          width: calc((100% - 2.2rem) / 5);
+        }
+        @media screen and (min-width: 768px){
+          width: calc((100% - 3rem) / 7);
+        }
+        @media screen and (min-width: 1024px){
+          width: calc((100% - 4.2rem) / 10);
+        }
+        @media screen and (min-width: 1366px){
+          width: calc((100% - 4.2rem) / 10);
         }
         .headimg
           box-sizing: border-box;
