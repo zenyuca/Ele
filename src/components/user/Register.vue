@@ -29,8 +29,10 @@
 <script>
 import HeadBar from '@/components/common/HeadBar'
 import Spliter from '@/components/common/Spliter'
-import { Toast, Indicator } from 'mint-ui'
-import { ACCOUNT_LSKEY, OK_STATUS } from '@/config'
+import { Toast } from 'mint-ui'
+import { OK_STATUS } from '@/config'
+import CommonJS from '@/assets/js/common'
+
 export default {
   name: 'register',
   beforeRouteEnter (to, from, next) {
@@ -76,10 +78,6 @@ export default {
             duration: 1500
           })
         } else {
-          Indicator.open({
-            text: '注册中...',
-            spinnerType: 'fading-circle'
-          })
           this.$http.post('/mobile/user/register.html', {
             phone: this.register.phone,
             pwd: this.register.pwd,
@@ -89,26 +87,16 @@ export default {
             timeout: 5000,
             emulateJSON: true
           }).then((response) => {
-            Indicator.close()
             response = response.body
             let status = response.status
             if (status === OK_STATUS) {
-              this.$localStorage.remove(ACCOUNT_LSKEY)
+              CommonJS.removeAccount(this)
+              CommonJS.storeAccount(this)
+              CommonJS.removeToken(this)
               this.$router.replace('/user/login')
-            } else {
-              Toast({
-                message: response.msg,
-                position: 'bottom',
-                duration: 1500
-              })
             }
           }, (response) => {
-            Indicator.close()
-            Toast({
-              message: '请求超时',
-              position: 'bottom',
-              duration: 1500
-            })
+            CommonJS.reqTimeOut()
           })
         }
       }

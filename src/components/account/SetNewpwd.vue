@@ -22,7 +22,9 @@
 import HeadBar from '@/components/common/HeadBar'
 import Spliter from '@/components/common/Spliter'
 import { Toast } from 'mint-ui'
-import { ACCOUNT_LSKEY, OK_STATUS } from '@/config'
+import { OK_STATUS } from '@/config'
+import CommonJS from '@/assets/js/common'
+
 export default {
   name: 'setNewpwd',
   beforeRouteEnter (to, from, next) {
@@ -75,17 +77,13 @@ export default {
             response = response.body
             let status = response.status
             if (status === OK_STATUS) {
-              let account = this.$localStorage.get(ACCOUNT_LSKEY)
-              account.islogin = false
+              let account = CommonJS.getAccount(this)
               account.pwd = ''
-              this.$localStorage.set(ACCOUNT_LSKEY, account)
+              account.rememberpwd = false
+              CommonJS.setAccount(this, account)
+              CommonJS.storeAccount(this)
+              CommonJS.removeToken(this)
               this.$router.replace('/user/login')
-            } else {
-              Toast({
-                message: response.msg,
-                position: 'bottom',
-                duration: 1500
-              })
             }
           }, (response) => {
             Toast({

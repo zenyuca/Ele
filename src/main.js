@@ -4,7 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from './store'
-import { TOKEN_LSKEY, localStorage } from './config'
+import { localStorage, NOLOGIN_STATUS } from './config'
 import VueResource from 'vue-resource'
 import ElementUI from 'element-ui'
 import MintUI from 'mint-ui'
@@ -26,7 +26,7 @@ Vue.use(VueScroller)
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
-new Vue({
+const vm = new Vue({
   el: '#app',
   router,
   store,
@@ -36,10 +36,10 @@ new Vue({
   created () {
     // 登录拦截 （刷新页面时）
     CommonJS.storeAccount(this)
-    const token = this.$localStorage.get(TOKEN_LSKEY)
-    if (token) {
+    const isLogin = CommonJS.isLogin(this)
+    if (isLogin) {
       if (this.toUser()) {
-        this.$reouter.replace('/account')
+        this.$router.replace('/account')
       }
     } else {
       if (!this.toUser()) {
@@ -60,8 +60,8 @@ new Vue({
 
 // 登录拦截，（路由跳转时）
 router.beforeEach((to, from, next) => {
-  const token = Vue.localStorage.get(TOKEN_LSKEY)
-  if (token) {
+  const isLogin = CommonJS.isLogin(vm)
+  if (isLogin) {
     if (toUser(to)) {
       next('/account')
       return
@@ -82,9 +82,34 @@ function toUser (to) {
 
 // 请求拦截器
 Vue.http.interceptors.push((request, next) => {
+  if (!request.body.phone) {
+    const account = CommonJS.getAccount(vm)
+    request.body.phone = account.phone
+  }
+  if (!request.body.login_token) {
+    const token = CommonJS.getToken(vm)
+    request.body.login_token = token
+  }
   MintUI.Indicator.open()
   next((response) => {
     MintUI.Indicator.close()
-    return response
+    const status = response.body.status
+    if (status === NOLOGIN_STATUS) {
+      CommonJS.removeToken(vm)
+      MintUI.Toast({
+        message: '账号在其它设备上登录',
+        position: 'bottom',
+        duration: 3000
+      })
+      vm.$router.replace('/user/login')
+    } else {
+      if (response.body.msg) {
+        MintUI.Toast({
+          message: response.body.msg,
+          position: 'bottom',
+          duration: 1500
+        })
+      }
+    }
   })
 })

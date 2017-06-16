@@ -44,11 +44,11 @@ export default {
       .row
         // height: 4.5rem;
         &.up
-          padding-top: 0.6rem;
-          font-size: 2.2rem;
+          padding-top: 0.8rem;
+          font-size: 1.6rem;
         &.down
-          padding-top: 0.2rem;
-          font-size: 0.9rem;
+          padding-top: 0.4rem;
+          font-size: 0.8rem;
       .router-link-exact-active
         color: #11a7a2;
 </style>

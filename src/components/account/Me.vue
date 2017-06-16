@@ -39,9 +39,6 @@ export default {
   },
   created () {
     let account = this.$store.state.account
-    if (!account.nickname) {
-      account.nickname = '未设置昵称'
-    }
     this.account = account
   },
   data () {

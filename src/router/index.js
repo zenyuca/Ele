@@ -11,6 +11,7 @@ import Me from '@/components/account/Me'
 import Settings from '@/components/account/Settings'
 import SetNewpwd from '@/components/account/SetNewpwd'
 import SetHead from '@/components/account/SetHead'
+import SetNickName from '@/components/account/SetNickName'
 
 Vue.use(Router)
 
@@ -63,6 +64,10 @@ export default new Router({
         {
           path: 'setHead',
           component: SetHead
+        },
+        {
+          path: 'setNickName',
+          component: SetNickName
         }
       ]
     }

@@ -14,6 +14,8 @@ const localStorage = {
 }
 // 返回成功的标志
 const OK_STATUS = 0
+// 未登录标志
+const NOLOGIN_STATUS = 10
 
 // 系统默认头像集合
 const HEAD_LIST = [
@@ -35,6 +37,7 @@ export {
   ACCOUNT_LSKEY,
   TOKEN_LSKEY,
   OK_STATUS,
+  NOLOGIN_STATUS,
   localStorage,
   HEAD_LIST
 }

@@ -26,7 +26,7 @@
 import HeadBar from '@/components/common/HeadBar'
 import Spliter from '@/components/common/Spliter'
 import { Toast } from 'mint-ui'
-import { TOKEN_LSKEY, OK_STATUS } from '@/config'
+import { OK_STATUS } from '@/config'
 import CommonJS from '@/assets/js/common'
 
 export default {
@@ -40,7 +40,7 @@ export default {
   },
   created () {
     let account = this.$store.state.account
-    if (account.phone) {
+    if (account) {
       this.rememberpwd = account.rememberpwd
       this.login.phone = account.phone
       this.login.pwd = account.pwd
@@ -92,18 +92,12 @@ export default {
             }
             this.login.rememberpwd = this.rememberpwd
             this.login.headimg = response.data.headimg
-
-            this.$store.state.account = this.login
+            this.login.nickName = response.data.username || '未设置昵称'
 
             CommonJS.setAccount(this, this.login)
-            this.$localStorage.set(TOKEN_LSKEY, response.data.loginToken)
+            CommonJS.storeAccount(this)
+            CommonJS.setToken(this, response.data.loginToken)
             this.$router.push('/account/')
-          } else {
-            Toast({
-              message: response.msg,
-              position: 'bottom',
-              duration: 1500
-            })
           }
         }, (response) => {
           Toast({

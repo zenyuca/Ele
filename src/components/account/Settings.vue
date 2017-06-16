@@ -8,8 +8,8 @@
         span.normal-value {{account.phone}}
       li.row
         label.normal-label 昵称
-        i.arrow.el-icon-arrow-right
-        span.normal-value {{account.nickname}}
+        router-link.arrow.el-icon-arrow-right(to="/account/setNickName" tag="i")
+        span.normal-value {{account.nickName}}
       li.row
         label.normal-label 更改头像
         router-link.arrow.el-icon-arrow-right(to="/account/setHead" tag="i")
@@ -28,8 +28,10 @@
 import HeadBar from '@/components/common/HeadBar'
 import FootBar from '@/components/common/FootBar'
 import Spliter from '@/components/common/Spliter'
-import { Toast, Indicator } from 'mint-ui'
-import { TOKEN_LSKEY, OK_STATUS } from '@/config'
+import { Toast } from 'mint-ui'
+import { OK_STATUS } from '@/config'
+import CommonJS from '@/assets/js/common'
+
 export default {
   name: 'settings',
   components: {
@@ -39,9 +41,6 @@ export default {
   },
   created () {
     let account = this.$store.state.account
-    if (!account.nickname) {
-      account.nickname = '未设置昵称'
-    }
     this.account = account
   },
   data () {
@@ -51,31 +50,19 @@ export default {
   },
   methods: {
     dologout () {
-      Indicator.open({
-        text: '登出中...',
-        spinnerType: 'fading-circle'
-      })
       this.$http.post('/mobile/user/login_out.html', {
         phone: this.account.phone
       }, {
         timeout: 5000,
         emulateJSON: true
       }).then((response) => {
-        Indicator.close()
         response = response.body
         let status = response.status
         if (status === OK_STATUS) {
-          this.$localStorage.remove(TOKEN_LSKEY)
+          CommonJS.removeToken(this)
           this.$router.replace('/user/login')
-        } else {
-          Toast({
-            message: response.msg,
-            position: 'bottom',
-            duration: 1500
-          })
         }
       }, (response) => {
-        Indicator.close()
         Toast({
           message: '请求超时',
           position: 'bottom',
