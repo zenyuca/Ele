@@ -50,6 +50,10 @@ function reqTimeOut () {
   })
 }
 
+function toLogin (vm) {
+  vm.$router.replace('/user/login')
+}
+
 export default {
   getAccount,
   setAccount,
@@ -59,7 +63,8 @@ export default {
   setToken,
   getToken,
   removeToken,
-  reqTimeOut
+  reqTimeOut,
+  toLogin
 }
 
 export {
@@ -71,5 +76,6 @@ export {
   setToken,
   getToken,
   removeToken,
-  reqTimeOut
+  reqTimeOut,
+  toLogin
 }

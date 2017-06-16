@@ -83,7 +83,7 @@ export default {
               CommonJS.setAccount(this, account)
               CommonJS.storeAccount(this)
               CommonJS.removeToken(this)
-              this.$router.replace('/user/login')
+              CommonJS.toLogin(this)
             }
           }, (response) => {
             Toast({
@@ -110,6 +110,5 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="stylus">
-  @import "../../assets/stylus/base.styl"
 
 </style>

@@ -76,8 +76,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="stylus">
-  @import "../../assets/stylus/base.styl"
-  
   // #settings
     
 </style>

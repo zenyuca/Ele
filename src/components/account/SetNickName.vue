@@ -58,7 +58,7 @@ export default {
             this.account.nickName = this.nickName
             CommonJS.setAccount(this, this.account)
             CommonJS.storeAccount(this)
-            this.$router.replace('/account/settings')
+            this.$router.back()
           }
         }, (response) => {
           Toast({

@@ -64,7 +64,7 @@ export default {
             account.headimg = this.headSelected
             CommonJS.setAccount(this, account)
             CommonJS.storeAccount(this)
-            this.$router.replace('/account/settings')
+            this.$router.back()
           }
         }, (response) => {
           Toast({

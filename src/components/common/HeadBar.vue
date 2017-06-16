@@ -50,7 +50,7 @@ export default {
   #headBar
     background-color: #000000;
     color: #ffffff;
-    font-size: 1rem;
+    font-size: 1.1rem;
     height: 3.5rem;
     line-height: 3.5rem;
     text-align: center;

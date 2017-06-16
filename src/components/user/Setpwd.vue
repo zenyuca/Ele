@@ -80,7 +80,7 @@ export default {
               account.pwd = ''
               CommonJS.setAccount(this, account)
               CommonJS.storeAccount(this)
-              this.$router.replace('/user/login')
+              CommonJS.toLogin(this)
             } else {
               Toast({
                 message: response.msg,
