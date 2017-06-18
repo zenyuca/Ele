@@ -1,27 +1,31 @@
 <template lang="pug">
   #me
     v-headBar(title="我的" :addon="addon" :showBack="false")
-    //- .content
-    //-   scroller(:on-refresh="refresh"  :on-infinite="infinite"  refreshText="努力加载中……")
-    //-     .headinfo
-    //-       img.headimg(:src="getHead()")
-    //-       .nickname {{account.nickname}}
-    //-       .phone {{account.phone}}
-    //-     v-spliter
-    //-     .headinfo
-    //-       img.headimg(:src="getHead()")
-    //-       .nickname {{account.nickname}}
-    //-       .phone {{account.phone}}
-    //-     v-spliter
-    //-     .headinfo
-    //-       img.headimg(:src="getHead()")
-    //-       .nickname {{account.nickname}}
-    //-       .phone {{account.phone}}
-    //-     v-spliter
-    //-     .headinfo
-    //-       img.headimg(:src="getHead()")
-    //-       .nickname {{account.nickname}}
-    //-       .phone {{account.phone}}
+    .content
+      .headinfo
+        img.headimg(:src="getHead()")
+        .nickname {{account.nickName}}
+        .phone {{account.phone}}
+      .navbar
+        .item
+          router-link(to="/account/setHead" tag="div")
+            .row.up
+              .icon1.icon-coin-yen
+            .row.down
+              span 电量电费
+        .item
+          router-link(to="/account/setNickName" tag="div")
+            .row.up
+              .icon2.icon-file-text
+            .row.down
+              span 电卡管理
+        .item
+          router-link(to="/account/settings" tag="div")
+            .row.up
+              .icon3.icon-briefcase
+            .row.down
+              span 历史用电
+      v-spliter
     v-footBar
 </template>
 
@@ -76,24 +80,43 @@ export default {
 <style lang="stylus">
   #me
     .content
-      position: absolute;
-      left: 0;
-      right: 0;
-      top: 3.5rem;
-      bottom: 4.5rem;
+      margin-bottom: 4.5rem;
       .headinfo
-        font-size: 14px;
-        padding-bottom: 10px;
-        background-color: rgba(36, 166, 195, 0.86);
+        padding-bottom: 1rem;
+        background: linear-gradient(rgba(162, 228, 255, 0.7), #24a6c3)
         text-align: center;
         .headimg
-          width: calc((100% - 18px) / 4);
+          width: calc((100% - 1.8rem) / 4);
           border-radius: 50%;
-          margin-top: 10px;
+          margin-top: 1rem;
         .nickname
           color: #fff;
-          margin-top: 10px;
+          margin-top: 1rem;
         .phone
-          margin-top: 10px;
+          margin-top: 1rem;
           font-weight: bold;
+      .navbar
+        width: 100%;
+        height: 6.4rem;
+        .item
+          .row
+            &.up
+              font-size: 1.6rem;
+            &.down
+              padding-top: 0.8rem;
+              font-size: 0.8rem;
+            div
+              width: 1.6rem;
+              height: 1.6rem;
+              display: inline-block;
+              border-radius: 50%;
+              padding: 0.8rem;
+              color: #fff;
+            .icon1
+              background-color: #f16a34;
+            .icon2
+              background-color: #188e57;
+            .icon3
+              background-color: #0487a7;
+
 </style>

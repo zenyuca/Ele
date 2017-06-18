@@ -48,7 +48,7 @@ export default {
 
 <style lang="stylus">
   #headBar
-    background-color: #000000;
+    background-color: rgba(0, 0, 0, 0.85);
     color: #ffffff;
     font-size: 1.1rem;
     height: 3.5rem;

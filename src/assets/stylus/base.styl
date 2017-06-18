@@ -64,6 +64,22 @@ html
   font-size: 1rem;
   &.disabled
     background-color: rgba(238, 121, 104, 0.53);
+    
+.navbar
+    display: flex;
+    .item
+      flex: 1
+      text-align: center;
+      color: #736f6f;
+      .row
+        &.up
+          padding-top: 0.8rem;
+          font-size: 1.6rem;
+        &.down
+          padding-top: 0.4rem;
+          font-size: 0.8rem;
+      .router-link-exact-active
+        color: #11a7a2;
 
 // 对mint-ui中css的定制化设置
 .mint-toast-text

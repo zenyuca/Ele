@@ -16,6 +16,7 @@ import 'element-ui/lib/theme-default/index.css'
 import 'mint-ui/lib/style.css'
 import '@/assets/stylus/reset.css'
 import '@/assets/stylus/base.styl'
+import '@/assets/icon.css'
 
 Vue.use(VueResource)
 Vue.use(ElementUI)
