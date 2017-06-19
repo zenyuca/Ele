@@ -81,12 +81,6 @@ export default {
               CommonJS.setAccount(this, account)
               CommonJS.storeAccount(this)
               CommonJS.toLogin(this)
-            } else {
-              Toast({
-                message: response.msg,
-                position: 'bottom',
-                duration: 1500
-              })
             }
           }, (response) => {
             Toast({

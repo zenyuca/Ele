@@ -54,6 +54,22 @@ function toLogin (vm) {
   vm.$router.replace('/user/login')
 }
 
+function payStatus (status) {
+  if (status === 0) {
+    return '已取消'
+  } else if (status === 10) {
+    return '未付款'
+  } else if (status === 20) {
+    return '已付款'
+  } else if (status === 30) {
+    return '交易完成'
+  } else if (status === 40) {
+    return '交易关闭'
+  } else {
+    return ''
+  }
+}
+
 export default {
   getAccount,
   setAccount,
@@ -64,7 +80,8 @@ export default {
   getToken,
   removeToken,
   reqTimeOut,
-  toLogin
+  toLogin,
+  payStatus
 }
 
 export {
@@ -77,5 +94,6 @@ export {
   getToken,
   removeToken,
   reqTimeOut,
-  toLogin
+  toLogin,
+  payStatus
 }

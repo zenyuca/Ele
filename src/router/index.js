@@ -12,6 +12,11 @@ import Settings from '@/components/account/Settings'
 import SetNewpwd from '@/components/account/SetNewpwd'
 import SetHead from '@/components/account/SetHead'
 import SetNickName from '@/components/account/SetNickName'
+// power
+import PowerCount from '@/components/power/PowerCount'
+import PowerPay from '@/components/power/PowerPay'
+import PayResult from '@/components/power/PayResult'
+import OrderDetail from '@/components/power/OrderDetail'
 
 Vue.use(Router)
 
@@ -68,6 +73,28 @@ export default new Router({
         {
           path: 'setNickName',
           component: SetNickName
+        }
+      ]
+    },
+    {
+      path: '/power/',
+      component: App,
+      children: [
+        {
+          path: 'powerCount',
+          component: PowerCount
+        },
+        {
+          path: 'powerPay',
+          component: PowerPay
+        },
+        {
+          path: 'payResult',
+          component: PayResult
+        },
+        {
+          path: 'orderDetail',
+          component: OrderDetail
         }
       ]
     }

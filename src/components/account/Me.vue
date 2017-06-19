@@ -8,7 +8,7 @@
         .phone {{account.phone}}
       .navbar
         .item
-          router-link(to="/account/setHead" tag="div")
+          router-link(to="/power/powerCount" tag="div")
             .row.up
               .icon1.icon-coin-yen
             .row.down
@@ -57,20 +57,6 @@ export default {
   methods: {
     getHead () {
       return '/static/img/head/' + this.account.headimg
-    },
-    refresh (done) {
-      let self = this
-      setTimeout(() => {
-        self.top = self.top - 10
-        done()
-      }, 1500)
-    },
-    infinite: function (done) {
-      let self = this
-      setTimeout(() => {
-        self.bottom = self.bottom + 10
-        done()
-      }, 1500)
     }
   }
 }

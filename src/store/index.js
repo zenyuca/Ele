@@ -6,16 +6,16 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     account: {},
-    findpwd: {}
+    order: {}
   },
   mutations: {
     getAccount: state => state.account,
     setAccount: (state, account) => {
       state.account = account
     },
-    getFindpwd: state => state.findpwd,
-    setFindpwd: (state, findpwd) => {
-      state.findpwd = findpwd
+    getOrder: state => state.order,
+    setOrder: (state, order) => {
+      state.order = order
     }
   }
 })

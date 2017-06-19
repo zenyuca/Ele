@@ -56,12 +56,6 @@ export default {
           if (status === OK_STATUS) {
             this.$store.state.findpwd = response.data
             this.$router.replace('/user/setpwd')
-          } else {
-            Toast({
-              message: response.msg,
-              position: 'bottom',
-              duration: 1500
-            })
           }
         }, (response) => {
           Toast({

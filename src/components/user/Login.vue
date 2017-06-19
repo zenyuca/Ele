@@ -62,6 +62,9 @@ export default {
   watch: {
     login: {
       handler (curVal, oldVal) {
+        if (curVal.phone === '') {
+          curVal.pwd = ''
+        }
         this.loginValidator()
       },
       deep: true
@@ -93,6 +96,7 @@ export default {
             this.login.rememberpwd = this.rememberpwd
             this.login.headimg = response.data.headimg
             this.login.nickName = response.data.username || '未设置昵称'
+            this.login.leftMoney = response.data.accountBalance
 
             CommonJS.setAccount(this, this.login)
             CommonJS.storeAccount(this)

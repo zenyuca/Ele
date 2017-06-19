@@ -10,6 +10,7 @@ import ElementUI from 'element-ui'
 import MintUI from 'mint-ui'
 import VueLocalStorage from 'vue-localstorage'
 import VueScroller from 'vue-scroller'
+import VueFilter from 'vue-filter'
 import CommonJS from '@/assets/js/common'
 
 import 'element-ui/lib/theme-default/index.css'
@@ -23,6 +24,7 @@ Vue.use(ElementUI)
 Vue.use(MintUI)
 Vue.use(VueLocalStorage)
 Vue.use(VueScroller)
+Vue.use(VueFilter)
 
 Vue.config.productionTip = false
 
@@ -83,6 +85,7 @@ function toUser (to) {
 
 // 请求拦截器
 Vue.http.interceptors.push((request, next) => {
+  let noIndicator = request.body.noIndicator
   if (!request.body.phone) {
     const account = CommonJS.getAccount(vm)
     request.body.phone = account.phone
@@ -91,7 +94,9 @@ Vue.http.interceptors.push((request, next) => {
     const token = CommonJS.getToken(vm)
     request.body.login_token = token
   }
-  MintUI.Indicator.open()
+  if (noIndicator !== true) {
+    MintUI.Indicator.open()
+  }
   next((response) => {
     MintUI.Indicator.close()
     const status = response.body.status
@@ -104,7 +109,7 @@ Vue.http.interceptors.push((request, next) => {
       })
       vm.$router.replace('/user/login')
     } else {
-      if (response.body.msg) {
+      if (response.body.msg && noIndicator !== true) {
         MintUI.Toast({
           message: response.body.msg,
           position: 'bottom',
