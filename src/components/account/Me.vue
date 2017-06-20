@@ -14,11 +14,11 @@
             .row.down
               span 电量电费
         .item
-          router-link(to="/account/setNickName" tag="div")
+          router-link(to="/record/buyPowerDetail" tag="div")
             .row.up
               .icon2.icon-file-text
             .row.down
-              span 电卡管理
+              span 购电记录
         .item
           router-link(to="/account/settings" tag="div")
             .row.up

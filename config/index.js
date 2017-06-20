@@ -29,8 +29,8 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/mobile': {
-        target: 'http://117.78.42.184:8080/boss',       // 使用target代理提交域名
-        // target: 'http://192.168.2.14:8090/boss',       // 使用target代理提交域名
+        // target: 'http://117.78.42.184:8080/boss',       // 使用target代理提交域名
+        target: 'http://192.168.2.14:8090/boss',       // 使用target代理提交域名
         changeOrigin: true,
         pathRewrite: {
           '^/mobile': 'mobile'

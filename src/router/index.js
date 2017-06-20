@@ -17,6 +17,8 @@ import PowerCount from '@/components/power/PowerCount'
 import PowerPay from '@/components/power/PowerPay'
 import PayResult from '@/components/power/PayResult'
 import OrderDetail from '@/components/power/OrderDetail'
+// record
+import BuyPowerDetail from '@/components/record/BuyPowerDetail'
 
 Vue.use(Router)
 
@@ -95,6 +97,16 @@ export default new Router({
         {
           path: 'orderDetail',
           component: OrderDetail
+        }
+      ]
+    },
+    {
+      path: '/record/',
+      component: App,
+      children: [
+        {
+          path: 'buyPowerDetail',
+          component: BuyPowerDetail
         }
       ]
     }

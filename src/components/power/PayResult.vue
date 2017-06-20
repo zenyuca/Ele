@@ -36,7 +36,7 @@ export default {
     this.interval = setInterval(() => {
       this.time--
       this.orderNo = this.$route.query.out_trade_no
-      if (this.time >= 0) {
+      if (this.time > 0) {
         this.doPay()
       } else {
         this.rmInterval()
@@ -67,8 +67,14 @@ export default {
         this.result = response
         let status = response.status
         if (status === OK_STATUS) {
-          this.rmInterval()
-          this.toDetail()
+          if (response.data.status === 20 || response.data.status === 30) {
+            let account = CommonJS.getAccount(this)
+            account.leftMoney = response.data.accountBalance
+            CommonJS.setAccount(this, account)
+            CommonJS.storeAccount(this)
+            this.rmInterval()
+            this.toDetail()
+          }
         }
       }, (response) => {
         Toast({

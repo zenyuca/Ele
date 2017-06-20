@@ -29,7 +29,6 @@
 import HeadBar from '@/components/common/HeadBar'
 import Spliter from '@/components/common/Spliter'
 import { Toast } from 'mint-ui'
-import { OK_STATUS } from '@/config'
 export default {
   name: 'powerPay',
   components: {
@@ -73,11 +72,6 @@ export default {
           this.$nextTick(() => {
             document.forms[0].submit()
           })
-          let status = response.status
-          if (status === OK_STATUS) {
-            this.$store.state.findpwd = response.data
-            this.$router.replace('/user/setpwd')
-          }
         }, (response) => {
           Toast({
             message: '请求超时',
