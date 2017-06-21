@@ -1,6 +1,7 @@
 <template lang="pug">
   #setNewpwd
     v-headBar(title="设置新密码")
+    v-spliter(height="0.7")
     .input-item
       .form-group
         label.control-label 原密码
@@ -110,5 +111,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="stylus">
-
+  #setNewpwd
+    margin-top: 3.5rem;
 </style>

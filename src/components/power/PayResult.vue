@@ -118,6 +118,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="stylus">
+  #payResult
+    margin-top: 3.5rem;
+
   .wait{
       z-index: 0;
       position: absolute;

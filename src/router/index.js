@@ -95,6 +95,7 @@ export default new Router({
           component: PayResult
         },
         {
+          meta: {refresh: false, toRoute: '/account/'},
           path: 'orderDetail',
           component: OrderDetail
         }
@@ -105,6 +106,7 @@ export default new Router({
       component: App,
       children: [
         {
+          meta: {refresh: false, toRoute: '/account/'},
           path: 'buyPowerDetail',
           component: BuyPowerDetail
         }

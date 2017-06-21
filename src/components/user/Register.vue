@@ -91,9 +91,7 @@ export default {
             let status = response.status
             if (status === OK_STATUS) {
               CommonJS.removeAccount(this)
-              CommonJS.storeAccount(this)
-              CommonJS.removeToken(this)
-              this.$router.replace('/user/login')
+              CommonJS.toLogin(this)
             }
           }, (response) => {
             CommonJS.reqTimeOut()
@@ -119,7 +117,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="stylus">
   #register
-    font-size: 1rem;
+    margin-top: 3.5rem;
     .nav-bar
       display: flex;
       margin: 0.3em 0;

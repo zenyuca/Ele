@@ -6,7 +6,7 @@
       .form-group
         label.control-label 昵称
         input.control-input(placeholder="设置昵称" type="text" v-model="nickName")
-    v-spliter
+    v-spliter(height="0.7")
     .input-item
       .form-group
         input.btn.btn-login(:class="{'disabled': !nickName || nickName === oldNickName}" type="button" value="确认修改" @click="doSetNickName()")
@@ -75,5 +75,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="stylus">
-  // #setNickName
+  #setNickName
+    margin-top: 3.5rem;
 </style>

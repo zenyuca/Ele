@@ -82,8 +82,9 @@ export default {
       }
     },
     powerValidator () {
-      if (this.selectCount || /^[1-9]\d*(\.\d{1,2})?$/.test(this.count)) {
+      if (this.selectCount || /^\d+(\.\d{1,2})?$/.test(this.count)) {
         this.powerPass = true
+        this.count = parseFloat(this.count)
       } else {
         this.powerPass = false
       }
@@ -95,6 +96,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="stylus">
   #powerPay
+    margin-top: 3.5rem;
     .money-list
       margin: 0 0.5rem;
       .item

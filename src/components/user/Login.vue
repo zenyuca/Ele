@@ -126,6 +126,7 @@ export default {
 
 <style lang="stylus">
   #login
+    margin-top: 3.5rem;
     .nav-bar
       display: flex;
       margin: 0.3rem 0;

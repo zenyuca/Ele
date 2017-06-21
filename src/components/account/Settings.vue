@@ -1,7 +1,7 @@
 <template lang="pug">
   #settings
     v-headBar(title="设置")
-    v-spliter(height="0.8")
+    v-spliter(height="0.7")
     ul.normal-list
       li.row
         label.normal-label 账号
@@ -76,6 +76,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="stylus">
-  // #settings
-    
+  #settings
+    margin-top: 3.5rem;
 </style>

@@ -44,6 +44,12 @@ const vm = new Vue({
       if (this.toUser()) {
         this.$router.replace('/account')
       }
+      let meta = this.$route.meta
+      if ('refresh' in meta) {
+        if (!meta.refresh) {
+          this.$router.replace(meta.toRoute)
+        }
+      }
     } else {
       if (!this.toUser()) {
         this.$router.replace('/user/login')
@@ -63,6 +69,7 @@ const vm = new Vue({
 
 // 登录拦截，（路由跳转时）
 router.beforeEach((to, from, next) => {
+  MintUI.Indicator.close()
   const isLogin = CommonJS.isLogin(vm)
   if (isLogin) {
     if (toUser(to)) {

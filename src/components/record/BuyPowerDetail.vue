@@ -1,19 +1,19 @@
 <template lang="pug">
-  #payDetail
+  #buyPowerDetail
     v-headBar(title="购电明细")
-    v-spliter(height="0.5")
+    v-spliter(height="0.7")
     ul.content(v-show="detail.totalPrice")
       li.row
         .header.buyPower
           .wrapper
-            .title {{detail.totalPrice}}
-            .label 总购电（元）
+            span.title {{detail.totalPrice}}
+            span.label 总购电（元）
         .footer {{detail.starttime}} 起
       li.row
         .header.leftMoney
           .wrapper
-            .title {{account.leftMoney}}
-            .label 电费余额（元）
+            span.title {{account.leftMoney}}
+            span.label 电费余额（元）
         .footer {{detail.endtime}} 止
     v-spliter(height="0.5")
     .detail-label(v-show="detail.list") 最近一年明细
@@ -31,7 +31,7 @@ import { Toast } from 'mint-ui'
 import { OK_STATUS } from '@/config'
 
 export default {
-  name: 'payDetail',
+  name: 'buyPowerDetail',
   components: {
     'v-headBar': HeadBar,
     'v-footBar': FootBar,
@@ -39,8 +39,12 @@ export default {
   },
   created () {
     this.getDetailInfo()
+    window.addEventListener('resize', this.fixPosition, true)
   },
   mounted () {
+  },
+  destroyed () {
+    window.removeEventListener('resize', this.fixPosition, true)
   },
   data () {
     return {
@@ -59,7 +63,7 @@ export default {
         let status = response.status
         if (status === OK_STATUS) {
           this.detail = response.data
-          // this.fixPosition()
+          this.fixPosition()
         }
       }, (response) => {
         Toast({
@@ -71,18 +75,24 @@ export default {
     },
     fixPosition () {
       this.$nextTick(() => {
-        let _html = document.getElementsByTagName('html')[0]
-        let style = window.getComputedStyle(_html, null)
-        let fontSize = parseInt(style.getPropertyValue('font-size'))
+        // let _html = document.getElementsByTagName('html')[0]
+        // let style = window.getComputedStyle(_html, null)
+        // let fontSize = parseInt(style.getPropertyValue('font-size'))
         let node = document.getElementsByClassName('wrapper')
         for (let i = 0; i < node.length; i++) {
           let e = node[i]
           let w = e.offsetWidth
-          let titleNode = e.childNodes[0]
-          let count = titleNode.innerHTML.length
-          titleNode.style.fontSize = (w / count) * (16 / 10) + 'px'
-          let top = (w / 2) - (fontSize * 1.3)
-          titleNode.style.paddingTop = top + 'px'
+          let childNode = e.childNodes
+          let h = 0
+          for (let j = 0; j < childNode.length; j++) {
+            let numNode = childNode[0]
+            let count = numNode.innerHTML.length
+            count = count < 4 ? 4 : count
+            numNode.style.fontSize = (w / count) * (16 / 10) + 'px'
+            h += numNode.offsetHeight
+          }
+          let padding = (w - h) / 2
+          e.style.padding = padding + 'px 0'
         }
       })
     }
@@ -92,7 +102,8 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="stylus">
-  #payDetail
+  #buyPowerDetail
+    margin-top: 3.5rem;
     .content
       text-align: center;
       padding: 0 1rem 1rem 1rem;
@@ -110,7 +121,7 @@ export default {
           &.buyPower
             color: #EE7968;
             border: 0.8rem solid #EE7968;
-            width: w = calc(100% - 2rem);
+            width: w = calc(100% - 1.5rem);
             padding-top: w;
           &.leftMoney
             color: #13AAB3;
@@ -121,13 +132,10 @@ export default {
             top: 0.8rem;
             right: 0.8rem;
             bottom: 0.8rem;
-            display: flex;
-            flex-direction: column;
             .title
-              flex: 1;
-              font-size: 1.9rem;
+              display: inline-block;
             .label
-              flex: 1;
+              display: inline-block;
               font-size: 0.8rem;
               color: #000000;
         .footer

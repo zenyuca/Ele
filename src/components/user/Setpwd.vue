@@ -1,5 +1,5 @@
 <template lang="pug">
-  #losepwd
+  #setpwd
     v-headBar(title="设置新密码")
     v-spliter
     .input-item
@@ -23,7 +23,7 @@ import { OK_STATUS } from '@/config'
 import CommonJS from '@/assets/js/common'
 
 export default {
-  name: 'losepwd',
+  name: 'setpwd',
   beforeRouteEnter (to, from, next) {
     if (from.path === '/user/losepwd') {
       next()
@@ -75,11 +75,7 @@ export default {
             response = response.body
             let status = response.status
             if (status === OK_STATUS) {
-              var account = CommonJS.getAccount(this)
-              account.rememberpwd = false
-              account.pwd = ''
-              CommonJS.setAccount(this, account)
-              CommonJS.storeAccount(this)
+              CommonJS.removeAccount(this)
               CommonJS.toLogin(this)
             }
           }, (response) => {
@@ -106,5 +102,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="stylus">
-
+  #setpwd
+    margin-top: 3.5rem;
 </style>

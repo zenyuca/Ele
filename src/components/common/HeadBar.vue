@@ -54,6 +54,11 @@ export default {
     height: 3.5rem;
     line-height: 3.5rem;
     text-align: center;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: 99;
     .back
       position: absolute;
       left: 0;

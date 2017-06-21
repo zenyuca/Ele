@@ -91,6 +91,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="stylus">
   #setHead
+    margin-top: 3.5rem;
     .headlist
       padding: 5px;
       .headitem

@@ -1,7 +1,7 @@
 <template lang="pug">
-  #payDetail
+  #orderDetail
     v-headBar(title="订单详情" :addon="addon")
-    v-spliter(height="0.8")
+    v-spliter(height="0.7")
     .content(v-show="order.amount")
       .user
         img.headimg(:src="getHead()")
@@ -29,7 +29,7 @@ import { OK_STATUS } from '@/config'
 import CommonJS from '@/assets/js/common'
 
 export default {
-  name: 'payDetail',
+  name: 'orderDetail',
   components: {
     'v-headBar': HeadBar,
     'v-footBar': FootBar,
@@ -80,7 +80,8 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="stylus">
-  #payDetail
+  #orderDetail
+    margin-top: 3.5rem;
     .content
       text-align: center;
       padding: 1rem 0;
@@ -89,11 +90,14 @@ export default {
           display: inline-block;
           width: 2rem;
           border-radius: 50%;
+          vertical-align: middle;
         .nickName
           display: inline-block;
           margin-left: 0.5rem;
           font-size: 1rem;
           font-weight: 500;
+          vertical-align: middle;
+          margin-top: 0.2rem;
       .amount
         margin-top: 1rem;
         font-size: 3rem;

@@ -8,6 +8,8 @@ function storeAccount (vm) {
 
 function removeAccount (vm) {
   vm.$localStorage.remove(ACCOUNT_LSKEY)
+  removeToken(vm)
+  storeAccount(vm)
 }
 
 function setAccount (vm, account) {

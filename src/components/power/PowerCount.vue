@@ -41,6 +41,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="stylus">
   #powerCount
+    margin-top: 3.5rem;
     .content
       text-align: center;
       .money

@@ -65,6 +65,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="stylus">
   #me
+    margin-top: 3.5rem;
     .content
       margin-bottom: 4.5rem;
       .headinfo
@@ -73,6 +74,7 @@ export default {
         text-align: center;
         .headimg
           width: calc((100% - 1.8rem) / 4);
+          max-width: 9rem;
           border-radius: 50%;
           margin-top: 1rem;
         .nickname
