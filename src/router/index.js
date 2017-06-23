@@ -19,6 +19,8 @@ import PayResult from '@/components/power/PayResult'
 import OrderDetail from '@/components/power/OrderDetail'
 // record
 import BuyPowerDetail from '@/components/record/BuyPowerDetail'
+// history
+import History from '@/components/record/History'
 
 Vue.use(Router)
 
@@ -109,6 +111,10 @@ export default new Router({
           meta: {refresh: false, toRoute: '/account/'},
           path: 'buyPowerDetail',
           component: BuyPowerDetail
+        },
+        {
+          path: 'history',
+          component: History
         }
       ]
     }

@@ -1,6 +1,6 @@
 <template lang="pug">
   #me
-    v-headBar(title="我的" :addon="addon" :showBack="false")
+    v-headBar(title="我的", :addon="addon", :showBack="false")
     .content
       .headinfo
         img.headimg(:src="getHead()")
@@ -20,7 +20,7 @@
             .row.down
               span 购电记录
         .item
-          router-link(to="/account/settings" tag="div")
+          router-link(to="/record/history" tag="div")
             .row.up
               .icon3.icon-briefcase
             .row.down
@@ -106,5 +106,4 @@ export default {
               background-color: #188e57;
             .icon3
               background-color: #0487a7;
-
 </style>

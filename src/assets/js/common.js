@@ -1,6 +1,7 @@
 import { ACCOUNT_LSKEY, TOKEN_LSKEY } from '@/config'
 import Base64 from 'js-base64'
 import { Toast } from 'mint-ui'
+import Chart from 'chart.js'
 
 function storeAccount (vm) {
   vm.$store.state.account = getAccount(vm)
@@ -72,6 +73,42 @@ function payStatus (status) {
   }
 }
 
+function getRootFontSize () {
+  let _html = document.getElementsByTagName('html')[0]
+  let style = window.getComputedStyle(_html, null)
+  let fontSize = parseInt(style.getPropertyValue('font-size'))
+  return fontSize
+}
+
+// chart插件
+Chart.plugins.register({
+  afterDatasetsDraw (chart, easing) {
+    let ctx = chart.ctx
+    chart.data.datasets.forEach((dataset, i) => {
+      let meta = chart.getDatasetMeta(i)
+      if (!meta.hidden) {
+        meta.data.forEach((element, index) => {
+          ctx.fillStyle = 'rgb(0, 0, 0)'
+          let fontSize = getRootFontSize()
+          fontSize *= 0.8
+          let fontStyle = 'normal'
+          let fontFamily = 'Helvetica Neue'
+          ctx.font = Chart.helpers.fontString(fontSize, fontStyle, fontFamily)
+
+          let dataString = dataset.data[index].toString()
+
+          ctx.textAlign = 'center'
+          ctx.textBaseline = 'middle'
+
+          let padding = fontSize * 0.5
+          let position = element.tooltipPosition()
+          ctx.fillText(dataString, position.x, position.y - (fontSize / 2) - padding)
+        })
+      }
+    })
+  }
+})
+
 export default {
   getAccount,
   setAccount,
@@ -83,7 +120,8 @@ export default {
   removeToken,
   reqTimeOut,
   toLogin,
-  payStatus
+  payStatus,
+  getRootFontSize
 }
 
 export {
@@ -97,5 +135,6 @@ export {
   removeToken,
   reqTimeOut,
   toLogin,
-  payStatus
+  payStatus,
+  getRootFontSize
 }

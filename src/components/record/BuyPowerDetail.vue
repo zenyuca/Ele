@@ -75,9 +75,6 @@ export default {
     },
     fixPosition () {
       this.$nextTick(() => {
-        // let _html = document.getElementsByTagName('html')[0]
-        // let style = window.getComputedStyle(_html, null)
-        // let fontSize = parseInt(style.getPropertyValue('font-size'))
         let node = document.getElementsByClassName('wrapper')
         for (let i = 0; i < node.length; i++) {
           let e = node[i]
