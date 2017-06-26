@@ -26,7 +26,7 @@
             .row.down
               span 历史用电
       v-spliter
-    v-footBar
+    //- v-footBar
 </template>
 
 <script>

@@ -1,7 +1,7 @@
 <template lang="pug">
   #history
     v-headBar(title="历史用电")
-    .chart
+    .chart(v-if="chart")
       vue-chart(:type="chart.type", :data="chart.data", :options="chart.options")
 </template>
 
@@ -9,6 +9,8 @@
 import HeadBar from '@/components/common/HeadBar'
 import FootBar from '@/components/common/FootBar'
 import Spliter from '@/components/common/Spliter'
+import { Toast } from 'mint-ui'
+import { OK_STATUS } from '@/config'
 import VueChart from 'vue-chart'
 
 export default {
@@ -22,47 +24,67 @@ export default {
   created () {
     let account = this.$store.state.account
     this.account = account
-    this.chart = {
-      type: 'line',
-      data: {
-        labels: ['1月', '2月', '3月', '4月', '5月', '6月'],
-        datasets: [{
-          label: '历史用电',
-          backgroundColor: '#81AD62',
-          borderColor: '#81AD62',
-          fill: false,
-          steppedLine: false,
-          // pointBackgroundColor: '#C60808',
-          // pointRadius: [
-          //   6, 6, 6, 6, 6, 10
-          // ],
-          // pointHoverRadius: [
-          //   6, 6, 6, 6, 6, 10
-          // ],
-          data: [
-            50, 338, 205, 444, 0, 222
-          ]
-        }]
-      },
-      options: {
-        responsive: true,
-        scales: {
-          scales: {
-            yAxes: [{
-              stacked: false
-            }]
-          }
-        }
-      }
-    }
+    this.loadHistoryData()
   },
   data () {
     return {
       account: {},
-      chart: {}
+      chart: null
     }
   },
   methods: {
+    loadHistoryData () {
+      this.$http.post('/mobile/user/history_ele.html', {
+      }, {
+        timeout: 5000,
+        emulateJSON: true
+      }).then((response) => {
+        response = response.body
+        let status = response.status
+        if (status === OK_STATUS) {
+          this.loadChartData(response.data.dates, response.data.nums)
+        }
+      }, (response) => {
+        Toast({
+          message: '请求超时',
+          position: 'bottom',
+          duration: 1500
+        })
+      })
+    },
+    loadChartData (labels, values) {
+      this.chart = {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: '历史用电',
+            backgroundColor: '#81AD62',
+            borderColor: '#81AD62',
+            fill: false,
+            steppedLine: false,
+            // pointBackgroundColor: '#C60808',
+            // pointRadius: [
+            //   6, 6, 6, 6, 6, 10
+            // ],
+            // pointHoverRadius: [
+            //   6, 6, 6, 6, 6, 10
+            // ],
+            data: values
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            scales: {
+              yAxes: [{
+                stacked: false
+              }]
+            }
+          }
+        }
+      }
+    }
   }
 }
 </script>
