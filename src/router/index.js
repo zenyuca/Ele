@@ -113,6 +113,7 @@ export default new Router({
           component: BuyPowerDetail
         },
         {
+          meta: {refresh: false, toRoute: '/account/'},
           path: 'history',
           component: History
         }
